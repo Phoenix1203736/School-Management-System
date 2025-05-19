@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddTeacher.ascx.cs"
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.AdminTeacher.AddTeacher" %>
 
+<!--suppress JSUnresolvedReference -->
 <div class="container mt-4">
     <div class="card-header bg-primary text-white">
         <h4 class="mb-0">Registro de maestro</h4>
@@ -34,10 +35,10 @@
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
                 <asp:TextBox ID="TextBoxPassword" runat="server" CssClass="form-control" 
-                    ReadOnly="true" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                    ReadOnly="true" ValidateRequestMode="Disabled" />
+                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                     ControlToValidate="TextBoxPassword" ErrorMessage="Campo obligatorio"
-                    CssClass="text-danger" Display="Dynamic" />
+                    CssClass="text-danger" Display="Dynamic" />--%>
 
                 <!-- Phone -->
                 <div class="mb-3">
@@ -58,21 +59,22 @@
                     <asp:TextBox ID="txtHireDate" runat="server" CssClass="form-control" />
                     <ajaxToolkit:CalendarExtender ID="ceHireDate" runat="server"
                         TargetControlID="txtHireDate" Format="yyyy-MM-dd" />
-                    <asp:RequiredFieldValidator ID="rfvHireDate" runat="server"
-                        ControlToValidate="txtHireDate" ErrorMessage="Hire date is required."
-                        CssClass="text-danger" Display="Dynamic" />
-                    <asp:CompareValidator ID="cvDate" runat="server"
-                        ControlToValidate="txtHireDate" Operator="DataTypeCheck" Type="Date"
-                        ErrorMessage="Invalid date." CssClass="text-danger" Display="Dynamic" />
+                    <%-- <asp:CompareValidator ID="cvDateNotFuture" runat="server" --%>
+                    <%--                       ControlToValidate="txtHireDate" Operator="LessThanEqual" Type="Date" --%>
+                    <%--                       ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" --%>
+                    <%--                       ErrorMessage="La fecha no puede ser futura" CssClass="text-danger" Display="Dynamic" /> --%>
+<asp:CompareValidator ID="cvDate" runat="server"
+                     ControlToValidate="txtHireDate" Operator="DataTypeCheck" Type="Date"
+                     ErrorMessage="Invalid date." CssClass="text-danger" Display="Dynamic" />
                 </div>
 
                 <!-- Specialization -->
                 <div class="mb-3">
                     <label class="form-label">Specialization</label>
                     <asp:TextBox ID="txtSpecialization" runat="server" CssClass="form-control" />
-                    <asp:RequiredFieldValidator ID="rfvSpecialization" runat="server"
+                    <%--<asp:RequiredFieldValidator ID="rfvSpecialization" runat="server"
                         ControlToValidate="txtSpecialization" ErrorMessage="Specialization is required."
-                        CssClass="text-danger" Display="Dynamic" />
+                        CssClass="text-danger" Display="Dynamic" />--%>
                 </div>
 
                 <!-- Status -->
@@ -88,10 +90,10 @@
                         ControlToValidate="ddlStatus" InitialValue=""
                         ErrorMessage="Please select a status." CssClass="text-danger" Display="Dynamic" />
                 </div>
+                
                 <div class="d-flex justify-content-start mt-3">
-                    <asp:Button ID="SumitButton" runat="server" Text="Register"
-                        CssClass="btn btn-primary" OnClick="SumitButton_Click" />
-
+                    <asp:Button CssClass="btn btn-primary" ID="SumitButton" OnClick="SumitButton_Click" runat="server" Text="Registrar"  />
+<asp:label runat="server" ID="MessageAuth" Visible="False"></asp:label>
                     <asp:Button ID="CancleButton" runat="server" Text="Cancel"
                         CssClass="btn btn-secondary ms-2"
                         CausesValidation="false"

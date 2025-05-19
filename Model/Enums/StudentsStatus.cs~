@@ -1,0 +1,7 @@
+﻿namespace SistemsProyect.Model.Enums
+{
+    public enum StudentsStatus
+    {
+        
+    }
+}

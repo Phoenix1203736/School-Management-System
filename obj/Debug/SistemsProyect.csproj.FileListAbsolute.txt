@@ -82,4 +82,3 @@ C:\Users\pacot\source\repos\SistemsProyect\obj\Debug\SistemsProyect.csproj.CoreC
 C:\Users\pacot\source\repos\SistemsProyect\obj\Debug\SistemsP.FBA5E0AE.Up2Date
 C:\Users\pacot\source\repos\SistemsProyect\obj\Debug\SistemsProyect.dll
 C:\Users\pacot\source\repos\SistemsProyect\obj\Debug\SistemsProyect.pdb
-C:\Users\pacot\source\repos\SistemsProyect\bin\SistemsProyect.dll.config

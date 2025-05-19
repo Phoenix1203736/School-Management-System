@@ -11,7 +11,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
 
 
-    public partial class AddStudentsCourse
+    public partial class AddCourse
     {
 
         /// <summary>

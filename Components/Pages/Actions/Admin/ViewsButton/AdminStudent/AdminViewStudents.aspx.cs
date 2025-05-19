@@ -7,34 +7,78 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadStudentButtons();
+            LoadButtons();
+            ReloadActiveControl();
         }
 
-        private void LoadStudentButtons()
+        private void LoadButtons()
         {
-            var control = Page.LoadControl("~/Components/Pages/Admin/AdminStudent/StudentButtons.ascx");
+            var control = LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/StudentButtons.ascx");
             placeHolderStudentButtons.Controls.Add(control);
         }
 
-        public void CancelButton()
+        private void ReloadActiveControl()
         {
-            placeHolderStudentView.Controls.Clear();
-            placeHolderStudentView.Visible = false;
+            if (ViewState["ActiveControl"] == null)
+            {
+                return;
+            }
+
+            string active = ViewState["ActiveControl"].ToString();
+            switch (active)
+            {
+                case "AddStudent":
+                    AddStudentView();
+                    break;
+                case "SearchStudent":
+                    SearchStudentView();
+                    break;
+                case "ChangeStatusStudent":
+                    ChangeStatusStudent();
+                    break;
+                default:
+                    ViewState["ActiveControl"] = null;
+                    break;
+            }
         }
 
         public void AddStudentView()
         {
             try
             {
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminStudent/Views/AddStudent.ascx");
+                placeHolderStudentView.Controls.Clear(); // en TODOS los métodos
+                ViewState["ActiveControl"] = "AddStudent";
+                var control =
+                    LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/Views/AddStudent.ascx");
                 placeHolderStudentView.Controls.Add(control);
                 placeHolderStudentView.Visible = true;
                 Debug.WriteLine("Control AddStudent loaded");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine($"Error {ex.Message}");
+                Debug.WriteLine("Error al cargar AddStudent: " + e.Message);
                 placeHolderStudentView.Visible = false;
+            }
+        }
+
+
+        public void ChangeStatusStudent()
+        {
+            try
+            {
+                placeHolderStudentView.Controls.Clear(); // en TODOS los métodos
+
+                ViewState["ActiveControl"] = "ChangeStatusStudent";
+                var control =
+                    LoadControl(
+                        "~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/Views/ChangeStatusStudent.ascx");
+                placeHolderStudentView.Controls.Add(control);
+                placeHolderStudentView.Visible = true;
+                Debug.WriteLine("Control ChangeStatusStudent loaded");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error: " + e.Message);
             }
         }
 
@@ -42,32 +86,29 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         {
             try
             {
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminStudent/Views/SearchStudent.ascx");
+                placeHolderStudentView.Controls.Clear(); // en TODOS los métodos
+
+                ViewState["ActiveControl"] = "SearchStudent";
+                var control =
+                    LoadControl(
+                        "~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/Views/SearchStudent.ascx");
                 placeHolderStudentView.Controls.Add(control);
                 placeHolderStudentView.Visible = true;
                 Debug.WriteLine("Control SearchStudent loaded");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine($"Error {ex.Message}");
-                placeHolderStudentView.Visible = false;
+                Debug.WriteLine("Error: " + e.Message);
             }
         }
 
-        public void ChangeStatusStudent()
+        public void CancelButton()
         {
-            try
-            {
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminStudent/Views/ChangeStatusStudent.ascx");
-                placeHolderStudentView.Controls.Add(control);
-                placeHolderStudentView.Visible = true;
-                Debug.WriteLine("Control ChangeStatusStudent loaded");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error {ex.Message}");
+            
+                placeHolderStudentView.Controls.Clear(); // en TODOS los métodos
+                ViewState["ActiveControl"] = null;
                 placeHolderStudentView.Visible = false;
-            }
+
         }
     }
 }

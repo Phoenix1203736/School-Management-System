@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ChangeStatusStudent.ascx.cs"
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.ChangeStatusStudent" %>
 <div class="container mt-4">
-    <h4>Cambiar estado del maestro</h4>
+    <h4>Cambiar estado del Alumno</h4>
     <div class="form-group">
-        <label>ID del Maestro</label>
+        <label>ID del Alumno</label>
         <asp:TextBox ID="txtStudentId" CssClass="form-control" runat="server" />
     </div>
 

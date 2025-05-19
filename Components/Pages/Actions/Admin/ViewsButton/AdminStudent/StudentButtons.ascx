@@ -18,8 +18,8 @@
             Text="Cambiar estado del  Estudiante"
             OnClick="ChangeStatusStudent_Click" CausesValidation="False" />
         <!-- Botón Actualizar Estudiante -->
-        <asp:Button runat="server" ID="UpdateStudent" CssClass="btn btn-warning"
+        <%--<asp:Button runat="server" ID="UpdateStudent" CssClass="btn btn-warning"
             Text="Actualizar Estudiante"
-            OnClick="UpdateStudent_Click" CausesValidation="False" />
+            OnClick="UpdateStudent_Click" CausesValidation="False" />--%>
     </div>
 </div>

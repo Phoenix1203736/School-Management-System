@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.UI;
+using SistemsProyect.Model.Classes;
+using SistemsProyect.Model.DataBase.Controllers;
 
 // using test_proyect_sistems.Model.Classes;
 // using test_proyect_sistems.Model.Enums;
@@ -20,7 +22,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
         /// <param name="e"></param>
         protected void CancleButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect(ResolveUrl("~/Default.aspx"));
+            var page = (AdminViews)this.Page;
+            page.CancelButtons();
         }
 
         /// <summary>
@@ -30,17 +33,39 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
         /// <param name="e"></param>
         protected void SumitButton_Click(object sender, EventArgs e)
         {
+            int? r = 0;
+            int? r1 = null;
             try
             {
-                // var NewTeacher = new Teacher().WithName(textBoxFirstName.Text, textBoxLastName.Text)
-                //     .WithCredentials(TextBoxEmail.Text, TextBoxPassword.Text).WithSpecialization(txtSpecialization.Text)
-                //     .WithContactInfo(txtPhone.Text).WithEmploymentDetails(DateTime.Parse(txtHireDate.Text),
-                //         (TeacherStatus)Enum.Parse(typeof(TeacherStatus), ddlStatus.SelectedValue));
-                // //missing logic to add teacher to the database
+                Model.Classes.Teacher teacher = new Model.Classes.Teacher();
+                teacher.FirstName = textBoxFirstName.Text;
+                teacher.LastName = textBoxLastName.Text;
+                teacher.Email = TextBoxEmail.Text;
+                teacher.Password = TextBoxPassword.Text;
+                teacher.Phone = txtPhone.Text;
+                teacher.HireDate = Convert.ToDateTime(txtHireDate.Text);
+                teacher.Specialization = txtSpecialization.Text;
+                teacher.Status = ddlStatus.SelectedValue;
+                r = TeacherOperations.AddTeacherToProfessor(teacher);
+                r1 = TeacherOperations.AddTeacherToUsers(teacher);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+
+            if (r > 0 && r1 > 0)
+            {
+                MessageAuth.Text = "Teacher added successfully";
+                MessageAuth.CssClass = "text-sucess";
+                MessageAuth.Visible = true;
+            }
+            else
+            {
+                MessageAuth.Text = "Error agregando al profesor recuerda que el correo y el numero de telefono son unicos"; 
+                MessageAuth.CssClass = "text-danger";
+                MessageAuth.Visible = true;
+                
             }
         }
 
@@ -48,11 +73,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
         {
             try
             {
-                // //Generate a random Password
-                // //string password = GenerateRandomPassword();
-                // var passwordRandomized = PasswordGenerator.GeneratePassword(10);
-                // // Set the password to the TextBox
-                // TextBoxPassword.Text = passwordRandomized;
+                //Generate a random Password
+                var passwordRandomized = PasswordGenerator.GeneratePassword(10);
+                // Set the password to the TextBox
+                TextBoxPassword.Text = passwordRandomized;
             }
             catch (Exception ex)
             {

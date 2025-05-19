@@ -8,17 +8,47 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadButtons();
+            ReloadActiveControl();
         }
 
         private void LoadButtons()
         {
-            var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/ButtonsAdminCourses.ascx");
+            var control = Page.LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/ButtonsAdminCourses.ascx");
             placeHolderAdminButtons.Controls.Add(control);
+        }
+
+        private void ReloadActiveControl()
+        {
+            if (ViewState["ActiveControl"] == null)
+            {
+                return;
+            }
+
+            string active = ViewState["ActiveControl"].ToString();
+            switch (active)
+            {
+                case "AddCourse":
+                    AddCourseView();
+                    break;
+                case "DeleteCourse":
+                    DeleteCourseView();
+                    break;
+                case "AddCourseStudent":
+                    AddStudentsCourse();
+                    break;
+                case "SearchCourse":
+                    SearchCourseView();
+                    break;
+                default:
+                    ViewState["ActiveControl"] = null;
+                    break;
+            }
         }
 
         public void CancelButton()
         {
             placeHolderAdminView.Controls.Clear();
+            ViewState["ActiveControl"] = null;
             placeHolderAdminView.Visible = false;
         }
 
@@ -26,7 +56,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             try
             {
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/AddCourses.ascx");
+                placeHolderAdminView.Controls.Clear();
+                ViewState["ActiveControl"] = "AddCourse";
+
+                var control = Page.LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminCourses/AddCourses.ascx");
                 placeHolderAdminView.Controls.Add(control);
                 placeHolderAdminView.Visible = true;
                 Debug.WriteLine("Control AddCourses loaded");
@@ -42,6 +75,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             try
             {
+                placeHolderAdminView.Controls.Clear();
+                ViewState["ActiveControl"] = "DeleteCourse";
+
                 var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/DeleteCourses.ascx");
                 placeHolderAdminView.Controls.Add(control);
                 placeHolderAdminView.Visible = true;
@@ -58,11 +94,13 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             try
             {
-                var control =
-                    Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/AddStudentsCourse.ascx");
+                placeHolderAdminView.Controls.Clear();
+                ViewState["ActiveControl"] = "AddCourseStudent";
+
+                var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/AddCourseStudent.ascx");
                 placeHolderAdminView.Controls.Add(control);
                 placeHolderAdminView.Visible = true;
-                Debug.WriteLine("Control UpdateCourses loaded");
+                Debug.WriteLine("Control AddCourseStudent loaded");
             }
             catch (Exception ex)
             {
@@ -75,6 +113,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             try
             {
+                placeHolderAdminView.Controls.Clear();
+                ViewState["ActiveControl"] = "SearchCourse";
+
                 var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/SearchCourses.ascx");
                 placeHolderAdminView.Controls.Add(control);
                 placeHolderAdminView.Visible = true;

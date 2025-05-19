@@ -40,14 +40,5 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ChangeStatusTeacher;
-
-        /// <summary>
-        /// UpdateTeacher control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UpdateTeacher;
     }
 }

@@ -17,7 +17,7 @@
                     <!-- Email -->
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="txtEmail" CssClass="form-label">Email</asp:Label>
-                        <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" TextMode="Email" />
+                        <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" TextMode="Email"  MaxLength="50"/>
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail"
                             CssClass="text-danger" ErrorMessage="El email es requerido" Display="Dynamic"/>
                         <asp:RegularExpressionValidator runat="server" ControlToValidate="txtEmail"
@@ -28,7 +28,7 @@
                     <!-- Contraseña -->
                     <div class="form-group mt-3">
                         <asp:Label runat="server" AssociatedControlID="txtPassword" CssClass="form-label">Contraseña</asp:Label>
-                        <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" CssClass="form-control" />
+                        <asp:TextBox runat="server" ID="txtPassword"  TextMode="Password" CssClass="form-control" MaxLength="50" AutoComplete="off" />
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPassword"
                             CssClass="text-danger" ErrorMessage="La contraseña es requerida" Display="Dynamic"/>
                     </div>

@@ -12,12 +12,12 @@ namespace SistemsProyect
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckStatusUser();
+           CheckStatusUser();
             // if (Session["User"] == null)
             // {
             //     // Usuario no autenticado
             //     //admin
-            // _navControl = Page.LoadControl("~/Components/NavBar/Admin/NavBarAdmin.ascx");
+             //_navControl = Page.LoadControl("~/Components/NavBar/Admin/NavBarAdmin.ascx");
             //     //guest
             //_navControl = Page.LoadControl("~/Components/NavBar/Guest/NavBarGuest.ascx");
             //     // var navbar = Page.LoadControl(("~/Components/Navbars/Teacher/NavBarTeacher.ascx"));

@@ -20,9 +20,9 @@
             OnClick="ChangeStatusTeacher_Click" CausesValidation="False" />
 
         <!-- Button update Teacher -->
-        <asp:Button runat="server" ID="UpdateTeacher" CssClass="btn btn-warning"
+        <%--<asp:Button runat="server" ID="UpdateTeacher" CssClass="btn btn-warning"
             Text="Actualizar Maestro"
-            OnClick="UpdateTeacher_Click" CausesValidation="False" />
+            OnClick="UpdateTeacher_Click" CausesValidation="False" />--%>
 
     </div>
 </div>

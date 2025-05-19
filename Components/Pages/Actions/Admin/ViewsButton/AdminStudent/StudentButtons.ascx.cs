@@ -9,15 +9,18 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         {
             var page = (AdminViewStudents)this.Page;
             page.CancelButton();
+            // page.CancelButton();
         }
 
         protected void UpdateStudent_Click(object sender, EventArgs e)
         {
+            // var page = (AdminViewStudents)this.Page;
+            // page.UpdateStudentView();
         }
 
         protected void SearchStudent_Click(object sender, EventArgs e)
         {
-            AdminViewStudents page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)this.Page;
             page.SearchStudentView();
         }
 

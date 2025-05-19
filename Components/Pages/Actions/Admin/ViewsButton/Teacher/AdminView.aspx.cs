@@ -12,29 +12,36 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
             ReloadActiveControl();
         }
 
+        /// <summary>
+        /// Reloads the active control based on the current ViewState.
+        /// This method checks the ViewState for an active control and loads the corresponding view.
+        /// </summary>
         private void ReloadActiveControl()
         {
+            // Check if ActiveControl is set in ViewState
             if (ViewState["ActiveControl"] == null)
                 return;
 
+            // Retrieve the active control identifier
             string active = ViewState["ActiveControl"].ToString();
 
+            // Determine which view to load based on the active control
             switch (active)
             {
                 case "UpdateTeacher":
-                    LoadUpdateTeacherView();
+                    LoadUpdateTeacherView(); // Load the view for updating a teacher
                     break;
                 case "SearchTeacher":
-                    LoadSearchTeacherView();
+                    LoadSearchTeacherView(); // Load the view for searching a teacher
                     break;
-                case "ChangeStatusTeacher":
-                    ChangeStatusTeacher();
+                case "ChangeStatusTeacher": 
+                    ChangeStatusTeacher(); // Load the view for changing teacher status
                     break;
                 case "AddTeacher":
-                    LoadTeacherAddView();
+                    LoadTeacherAddView(); // Load the view for adding a teacher
                     break;
                 default:
-                    ViewState["ActiveControl"] = null;
+                    ViewState["ActiveControl"] = null; // Reset ViewState if no valid control is found
                     return;
             }
         }
@@ -44,34 +51,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         {
             var control = LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/Teacher/Buttonsteacher.ascx");
             placeHolderAdminButtons.Controls.Add(control);
-            /*
-            try
-            {
-                if (Session["Teacher"] != null && Session["Student"] == null)
-                {
-                    var control = LoadControl("~/Components/Pages/Admin/AdminTeacher/AdminActionsTeacher/Buttonsteacher.ascx");
-                    placeHolderAdminButtons.Controls.Add(control);
-                }
-                else if (Session["Student"] != null || Session["Teacher"] == null)
-                {
-                    var control = LoadControl("~/Components/Pages/Admin/AdminTeacher/AdminActionsTeacher/ButtonsStudent.ascx");
-                    placeHolderAdminButtons.Controls.Add(control);
-                }
-                else if (Session["Student"] == null && Session["Teacher"] == null)
-                {
-                    Response.Redirect(ResolveUrl("~/Components/Pages/404_NotFound/NotFound.aspx"));
-                }
-                else
-                {
-                    Response.Redirect("~/Components/Pages/404_NotFound/NotFound.aspx");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                Console.WriteLine(ex.Message);
-            }
-            */
         }
 
         public void CancelButtons()
