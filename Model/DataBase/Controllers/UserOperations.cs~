@@ -8,45 +8,43 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class UserOperations
     {
+        private static SingletonSafe _singletonSafe = SingletonSafe.GetInstance();
         private static string? _instruction;
 
         internal static void GetUser(string email, string password)
         {
-            _instruction = @"SELECT name, email, role, active FROM users WHERE email = @email AND `password` = @password;";
-            
-            using var connection = SingletonSafe.CreateConnection();
-            if (connection == null || connection.State != System.Data.ConnectionState.Open)
-                return;
-
-            using (MySqlCommand sqlCommand = new MySqlCommand(_instruction, connection))
+            _instruction = @"SELECT name, email,role,active FROM users WHERE email=@email AND `password`=@password;";
+            using (MySqlCommand sqlCommand = new MySqlCommand(_instruction, _singletonSafe.GetConnection()))
             {
                 sqlCommand.Parameters.AddWithValue("@email", email);
                 sqlCommand.Parameters.AddWithValue("@password", password);
-
                 using (MySqlDataReader reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.Read())
                     {
                         User user = new User();
+                        // user.Name = reader.IsDBNull(reader.GetOrdinal("name"))
+                        //     ? string.Empty
+                        //     : reader.GetString("name");
+                        // SELECT name,LastName, email,role,active FROM users WHERE email=@email AND `password`=@password;
 
+                        // Verificar NULL antes de convertir
                         user.Name = reader.IsDBNull(reader.GetOrdinal("name"))
                             ? string.Empty
                             : reader.GetString("name");
-
                         user.Email = reader.IsDBNull(reader.GetOrdinal("email"))
                             ? string.Empty
                             : reader.GetString("email");
-
+                        // Manejar el rol (si es NULL, asignar "Guest" por defecto)
                         string roleStr = reader.IsDBNull(reader.GetOrdinal("role"))
                             ? "Guest"
                             : reader.GetString("role");
-
                         user.Role = Enum.TryParse(roleStr, out UserRole role) ? role : UserRole.Guest;
-
+                        // Manejar el estado (si es NULL, asignar false por defecto)
                         int activeCol = reader.GetOrdinal("active");
                         user.Active = !reader.IsDBNull(activeCol) && reader.GetInt32(activeCol) == 1;
-
                         HttpContext.Current.Session["user"] = user;
+                     
                     }
                 }
             }

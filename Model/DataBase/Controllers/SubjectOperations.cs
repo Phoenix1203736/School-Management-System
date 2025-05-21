@@ -7,43 +7,38 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class SubjectOperations
     {
-        private static readonly Singleton singleton = Singleton.GetInstance();
-        
-        // private static readonly Singleton singleton = Singleton.GetInstance();
-
         public static int? InsertSubject(Subject subject)
         {
-            if (subject == null)
-                throw new ArgumentNullException(nameof(subject));
-
             int? result = null;
-            short activeValue = 1;
-
-            if (subject.endDate.HasValue && subject.endDate.Value.Date < DateTime.Now.Date)
-                activeValue = 0;
-
-            string query = @"
-        INSERT INTO school.subjects 
-        (id_professor, name, start_date, end_date, active, description)
-        VALUES (@id_professor, @name, @start_date, @end_date, @active, @description);";
+            const string query = @"
+                INSERT INTO school.subjects 
+                (id_professor, name, start_date, end_date, active, description) 
+                VALUES 
+                (@id_professor, @name, @start_date, @end_date, @active, @description);";
 
             try
             {
-                using (MySqlCommand command = new MySqlCommand(query, singleton.GetConnection()))
-                {
-                    command.Parameters.AddWithValue("@id_professor", subject.ID_Teacher ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@name", subject.Name ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@start_date", subject.startDate ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@end_date", subject.endDate ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@active", activeValue);
-                    command.Parameters.AddWithValue("@description", subject.Description ?? (object)DBNull.Value);
+                using var connection = SingletonSafe.CreateConnection();
+                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    return null;
 
-                    result = command.ExecuteNonQuery();
-                } // Ahora devuelve una nueva instancia
+                using var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_professor", subject.ID_Teacher);
+                command.Parameters.AddWithValue("@name", subject.Name);
+                command.Parameters.AddWithValue("@start_date", subject.startDate);
+                command.Parameters.AddWithValue("@end_date", subject.endDate);
+                command.Parameters.AddWithValue("@active", subject.Active);
+                command.Parameters.AddWithValue("@description", subject.Description);
+
+                result = command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
-                Debug.WriteLine($"{ex.Message} en método InsertSubject");
+                Debug.WriteLine($"Error MySQL en InsertSubject: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error general en InsertSubject: {ex.Message}");
             }
 
             return result;

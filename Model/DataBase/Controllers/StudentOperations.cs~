@@ -9,7 +9,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class StudentOperations
     {
-        private static readonly Singleton Singleton1 = Singleton.GetInstance();
+        private static readonly SingletonSafe Singleton1 = SingletonSafe.GetInstance();
 
         private static string? _query;
 
@@ -46,13 +46,10 @@ namespace SistemsProyect.Model.DataBase.Controllers
             return result;
         }
 
-        
-
 
         public static int? GetStudentByEmail(string email)
         {
             int? result = null;
-            Student? student = null;
             string query = @"SELECT id, first_name, last_name, birth_day, email, phone, date_entry, `status`
                      FROM school.students WHERE email = @email Limit 1;";
             using (MySqlCommand command = new MySqlCommand(query, Singleton1.GetConnection()))
@@ -62,7 +59,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 {
                     if (reader.Read())
                     {
-                        student = new Student
+                        var student = new Student
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("id")),
                             FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
@@ -140,45 +137,46 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 }
             }
 
+            
             return result;
         }
 
 
         public static int? UpdateStudent(Student student, string oldEmail)
-{
-    int? result = null;
+        {
+            int? result = null;
 
-    if (student == null || string.IsNullOrWhiteSpace(oldEmail))
-    {
-        Debug.WriteLine("El objeto student es nulo o el oldEmail está vacío.");
-        return null;
-    }
+            if (student == null || string.IsNullOrWhiteSpace(oldEmail))
+            {
+                Debug.WriteLine("El objeto student es nulo o el oldEmail está vacío.");
+                return null;
+            }
 
-    try
-    {
-        using var connection = Singleton1.GetConnection();
-        if (connection.State != System.Data.ConnectionState.Open)
-            connection.Open();
+            try
+            {
+                using var connection = Singleton1.GetConnection();
+                if (connection.State != System.Data.ConnectionState.Open)
+                    connection.Open();
 
-        // 1) Verificar que el estudiante existe con el correo viejo
-         string checkSql = @"
+                // 1) Verificar que el estudiante existe con el correo viejo
+                string checkSql = @"
             SELECT COUNT(*) 
             FROM school.students 
             WHERE email = @oldEmail;
         ";
-        using (var checkCmd = new MySqlCommand(checkSql, connection))
-        {
-            checkCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
-            int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-            if (count == 0)
-            {
-                Debug.WriteLine($"No existe el email antiguo en students: {oldEmail}");
-                return null;
-            }
-        }
+                using (var checkCmd = new MySqlCommand(checkSql, connection))
+                {
+                    checkCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (count == 0)
+                    {
+                        Debug.WriteLine($"No existe el email antiguo en students: {oldEmail}");
+                        return null;
+                    }
+                }
 
-        // 2) Ejecutar UPDATE en tabla `students`
-        const string updateSql = @"
+                // 2) Ejecutar UPDATE en tabla `students`
+                const string updateSql = @"
             UPDATE school.students 
             SET first_name = @firstName,
                 last_name = @lastName,
@@ -189,29 +187,30 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 status = @status
             WHERE email = @oldEmail;
         ";
-        using var updateCmd = new MySqlCommand(updateSql, connection);
-        updateCmd.Parameters.AddWithValue("@firstName", student.FirstName?.Trim());
-        updateCmd.Parameters.AddWithValue("@lastName", student.LastName?.Trim());
-        updateCmd.Parameters.AddWithValue("@birthDay", student.BirthDate);
-        updateCmd.Parameters.AddWithValue("@newEmail", student.Email?.Trim());
-        updateCmd.Parameters.AddWithValue("@phone", student.Phone?.Trim());
-        updateCmd.Parameters.AddWithValue("@dateEntry", student.DateEntry);
-        updateCmd.Parameters.AddWithValue("@status", (short)student.Status); // Asegúrate que el enum se mapea a short
-        updateCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
+                using var updateCmd = new MySqlCommand(updateSql, connection);
+                updateCmd.Parameters.AddWithValue("@firstName", student.FirstName?.Trim());
+                updateCmd.Parameters.AddWithValue("@lastName", student.LastName?.Trim());
+                updateCmd.Parameters.AddWithValue("@birthDay", student.BirthDate);
+                updateCmd.Parameters.AddWithValue("@newEmail", student.Email?.Trim());
+                updateCmd.Parameters.AddWithValue("@phone", student.Phone?.Trim());
+                updateCmd.Parameters.AddWithValue("@dateEntry", student.DateEntry);
+                updateCmd.Parameters.AddWithValue("@status",
+                    (short)student.Status); // Asegúrate que el enum se mapea a short
+                updateCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
 
-        result = updateCmd.ExecuteNonQuery();
-    }
-    catch (MySqlException mex)
-    {
-        Debug.WriteLine($"MySQL Error en UpdateStudent: {mex.Message}");
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine($"Error general en UpdateStudent: {ex.Message}");
-    }
-   
-    return result;
-}
+                result = updateCmd.ExecuteNonQuery();
+            }
+            catch (MySqlException mex)
+            {
+                Debug.WriteLine($"MySQL Error en UpdateStudent: {mex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error general en UpdateStudent: {ex.Message}");
+            }
 
+
+            return result;
+        }
     }
-}
+} 

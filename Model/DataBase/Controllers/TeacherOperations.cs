@@ -9,22 +9,20 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class TeacherOperations
     {
-        private static readonly Singleton Singleton = Singleton.GetInstance();
         private static string? _query;
 
-        /// <summary>
-        /// add teacher to professor table
-        /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns>0 if it's fail or 1 if it's success</returns>
         public static int? AddTeacherToProfessor(Teacher teacher)
         {
             int? result = null;
-            _query =
-                @"INSERT INTO school.professor ( `first_name`, `last_name`, `email`, `password`, `phone`, `hire_date`, `specialization`, `status`) VALUES ( @FirstName,@LastName , @Email, @password, @phone, @hireDate, @specialization, @status);";
+            _query = @"INSERT INTO school.professor 
+                    (`first_name`, `last_name`, `email`, `password`, `phone`, `hire_date`, `specialization`, `status`) 
+                    VALUES (@FirstName, @LastName, @Email, @password, @phone, @hireDate, @specialization, @status);";
+
             try
             {
-                using MySqlCommand command = new MySqlCommand(_query, Singleton.GetConnection());
+                using var connection = SingletonSafe.CreateConnection();
+
+                using MySqlCommand command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
                 command.Parameters.AddWithValue("@LastName", teacher.LastName);
                 command.Parameters.AddWithValue("@Email", teacher.Email);
@@ -33,34 +31,26 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 command.Parameters.AddWithValue("@hireDate", teacher.HireDate);
                 command.Parameters.AddWithValue("@specialization", teacher.Specialization);
                 command.Parameters.AddWithValue("@status", teacher.Status);
+
                 result = command.ExecuteNonQuery();
             }
             catch (MySqlException e)
             {
-                Debug.WriteLine(e.Message + "en metodo addTeacherToProffesor");
-            }
-            finally
-            {
-                Singleton.CloseConnection();
+                Debug.WriteLine(e.Message + " en método AddTeacherToProfessor");
             }
 
             return result;
         }
 
-        /// <summary>
-        /// add the teacher to users 
-        /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns>0 if it's fail or 1 if it's success</returns>
         public static int? AddTeacherToUsers(Teacher teacher)
         {
             var user = new User();
             int? result = null;
             short? active;
-            _query =
-                @"INSERT INTO school.users ( `name`, `email`, `password`, `phone`, `role`,  `active`) VALUES ( @name, @email, @password, @phone, @role,@active);
-";
-            if (teacher.Status! == nameof(TeacherStatus.Active))
+            _query = @"INSERT INTO school.users (`name`, `email`, `password`, `phone`, `role`, `active`) 
+                       VALUES (@name, @email, @password, @phone, @role, @active);";
+
+            if (teacher.Status == nameof(TeacherStatus.Active))
             {
                 user.Role = UserRole.Standard;
                 active = 1;
@@ -73,65 +63,58 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using MySqlCommand command = new MySqlCommand(_query, Singleton.GetConnection());
+                using var connection = SingletonSafe.CreateConnection();
+
+                using MySqlCommand command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@name", teacher.FirstName);
                 command.Parameters.AddWithValue("@email", teacher.Email);
                 command.Parameters.AddWithValue("@password", teacher.Password);
                 command.Parameters.AddWithValue("@phone", teacher.Phone);
                 command.Parameters.AddWithValue("@role", user.Role.ToString());
                 command.Parameters.AddWithValue("@active", active);
+
                 result = command.ExecuteNonQuery();
             }
             catch (MySqlException e)
             {
-                Debug.WriteLine(e.Message + "en metodo addTeacherToUsers");
-            }
-            finally
-            {
-                Singleton.CloseConnection();
+                Debug.WriteLine(e.Message + " en método AddTeacherToUsers");
             }
 
             return result;
         }
 
-        /// <summary>
-        /// need to fix this method
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
         public static Teacher? GetProfessorByEmail(string email)
         {
             Teacher? professor = null;
-            string query = @"SELECT id, first_name, last_name, email, phone, hire_date, specialization, status
-                     FROM school.professor WHERE email = @email LIMIT 1;";
-            using (MySqlCommand command = new MySqlCommand(query, Singleton.GetConnection()))
+            string query = @"SELECT id, first_name, last_name, email, phone, hire_date, specialization, status 
+                             FROM school.professor WHERE email = @email LIMIT 1;";
+
+            try
             {
+                using var connection = SingletonSafe.CreateConnection();
+
+                using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@email", email);
-                using (MySqlDataReader reader = command.ExecuteReader())
+
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    if (reader.Read())
+                    professor = new Teacher
                     {
-                        professor = new Teacher()
-                        {
-                            Id = reader.GetInt32("id"),
-                            FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
-                                ? ""
-                                : reader.GetString("first_name"),
-                            LastName = reader.IsDBNull(reader.GetOrdinal("last_name"))
-                                ? ""
-                                : reader.GetString("last_name"),
-                            Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
-                            Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
-                            HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date"))
-                                ? DateTime.Now
-                                : reader.GetDateTime("hire_date"),
-                            Specialization = reader.IsDBNull(reader.GetOrdinal("specialization"))
-                                ? ""
-                                : reader.GetString("specialization"),
-                            Status = reader.IsDBNull(reader.GetOrdinal("status")) ? "" : reader.GetString("status")
-                        };
-                    }
+                        Id = reader.GetInt32("id"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
+                        Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
+                        Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
+                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date")) ? DateTime.Now : reader.GetDateTime("hire_date"),
+                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization")) ? "" : reader.GetString("specialization"),
+                        Status = reader.IsDBNull(reader.GetOrdinal("status")) ? "" : reader.GetString("status")
+                    };
                 }
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine(e.Message + " en método GetProfessorByEmail");
             }
 
             return professor;
@@ -149,45 +132,36 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = Singleton.GetConnection();
-                if (connection.State != System.Data.ConnectionState.Open)
-                {
-                    connection.Open();
-                }
+                using var connection = SingletonSafe.CreateConnection();
 
-                // Verificar si existe el email antiguo
                 string checkQuery = "SELECT COUNT(*) FROM school.users WHERE email = @oldEmail";
-                using (var checkCmd = new MySqlCommand(checkQuery, connection))
+                using var checkCmd = new MySqlCommand(checkQuery, connection);
+                checkCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                if (count == 0)
                 {
-                    checkCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
-                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-                    if (count == 0)
-                    {
-                        Debug.WriteLine($"No existe el email antiguo en la base de datos: {oldEmail}");
-                        return null;
-                    }
+                    Debug.WriteLine($"No existe el email antiguo en la base de datos: {oldEmail}");
+                    return null;
                 }
 
                 short active = teacher.Status == nameof(TeacherStatus.Active) ? (short)1 : (short)0;
 
                 string updateQuery = @"
-            UPDATE school.users 
-            SET 
-                `name` = @name, 
-                `password` = @password, 
-                `phone` = @phone, 
-                `role` = @role, 
-                `active` = @active
-            WHERE email = @oldEmail;";
+                    UPDATE school.users 
+                    SET `name` = @name, 
+                        `password` = @password, 
+                        `phone` = @phone, 
+                        `role` = @role, 
+                        `active` = @active 
+                    WHERE email = @oldEmail;";
 
                 using var updateCmd = new MySqlCommand(updateQuery, connection);
                 updateCmd.Parameters.AddWithValue("@name", teacher.FirstName);
                 updateCmd.Parameters.AddWithValue("@password", teacher.Password);
                 updateCmd.Parameters.AddWithValue("@phone", teacher.Phone);
-                updateCmd.Parameters.AddWithValue("@role",
-                    teacher.Status == nameof(TeacherStatus.Active)
-                        ? UserRole.Standard.ToString()
-                        : UserRole.Guest.ToString());
+                updateCmd.Parameters.AddWithValue("@role", teacher.Status == nameof(TeacherStatus.Active)
+                    ? UserRole.Standard.ToString()
+                    : UserRole.Guest.ToString());
                 updateCmd.Parameters.AddWithValue("@active", active);
                 updateCmd.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
 
@@ -201,33 +175,29 @@ namespace SistemsProyect.Model.DataBase.Controllers
             {
                 Debug.WriteLine($"Error general en UpdateTeacherInUsers: {ex.Message}");
             }
-            finally
-            {
-                Singleton.CloseConnection();
-            }
 
             return result;
         }
-
 
         public static int? UpdateTeacher(Teacher teacher)
         {
             int? result = null;
 
             string query = @"
-        UPDATE school.professor 
-        SET 
-            first_name = @FirstName,
-            last_name = @LastName,
-            phone = @Phone,
-            hire_date = @HireDate,
-            specialization = @Specialization,
-            status = @Status
-        WHERE email = @Email;";
+                UPDATE school.professor 
+                SET first_name = @FirstName,
+                    last_name = @LastName,
+                    phone = @Phone,
+                    hire_date = @HireDate,
+                    specialization = @Specialization,
+                    status = @Status
+                WHERE email = @Email;";
 
             try
             {
-                using MySqlCommand command = new MySqlCommand(query, Singleton.GetConnection());
+                using var connection = SingletonSafe.CreateConnection();
+
+                using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
                 command.Parameters.AddWithValue("@LastName", teacher.LastName);
                 command.Parameters.AddWithValue("@Phone", teacher.Phone);
@@ -240,122 +210,74 @@ namespace SistemsProyect.Model.DataBase.Controllers
             }
             catch (MySqlException e)
             {
-                Debug.WriteLine(e.Message + " en metodo UpdateTeacher");
-            }
-            finally
-            {
-                Singleton.CloseConnection();
+                Debug.WriteLine(e.Message + " en método UpdateTeacher");
             }
 
             return result;
         }
 
-
         public static Teacher? GetProfessorByPhone(string phone)
         {
             Teacher? professor = null;
             string query = @"SELECT id, first_name, last_name, email, phone, hire_date, specialization, status
-                     FROM school.professor WHERE phone = @phone LIMIT 1;";
-            /*using (MySqlCommand command = new MySqlCommand(query, Singleton.GetConnection()))
-            {*/
-            using var connection = Singleton.GetConnection();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@phone", phone);
-            using (MySqlDataReader reader = command.ExecuteReader())
+                             FROM school.professor WHERE phone = @phone LIMIT 1;";
+
+            try
             {
+                using var connection = SingletonSafe.CreateConnection();
+
+                using var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@phone", phone);
+
+                using var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    professor = new Teacher()
+                    professor = new Teacher
                     {
                         Id = reader.GetInt32("id"),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
-                            ? ""
-                            : reader.GetString("first_name"),
-                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name"))
-                            ? ""
-                            : reader.GetString("last_name"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
                         Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
                         Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
-                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date"))
-                            ? DateTime.Now
-                            : reader.GetDateTime("hire_date"),
-                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization"))
-                            ? ""
-                            : reader.GetString("specialization"),
+                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date")) ? DateTime.Now : reader.GetDateTime("hire_date"),
+                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization")) ? "" : reader.GetString("specialization"),
                         Status = reader.IsDBNull(reader.GetOrdinal("status")) ? "" : reader.GetString("status")
                     };
                 }
             }
-
+            catch (MySqlException e)
+            {
+                Debug.WriteLine(e.Message + " en método GetProfessorByPhone");
+            }
 
             return professor;
         }
-
 
         public static List<Teacher> GetActiveProfessors()
         {
             List<Teacher> professors = new List<Teacher>();
             string query = "SELECT id, first_name, last_name FROM school.professor WHERE status = 'active'";
 
-            using var connection = Singleton.GetConnection();
-            // using (MySqlCommand cmd = new MySqlCommand(query, Singleton.GetConnection()))
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-            using var cmd = new MySqlCommand(query, connection);
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            try
             {
+                using var connection = SingletonSafe.CreateConnection();
+
+                using var cmd = new MySqlCommand(query, connection);
+                using var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     professors.Add(new Teacher
                     {
                         Id = reader.GetInt32("id"),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
-                            ? ""
-                            : reader.GetString("first_name"),
-                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name"))
-                            ? ""
-                            : reader.GetString("last_name")
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name")
                     });
                 }
             }
-
-            return professors;
-        }
-
-        public static List<(int Id, string FullName)> GetActiveProfessorsDropDown()
-        {
-            var professors = new List<(int, string)>();
-
-            try
+            catch (MySqlException ex)
             {
-                using var connection = Singleton.GetConnection();
-                if (connection.State != System.Data.ConnectionState.Open)
-                    connection.Open();
-
-                string sql = @"SELECT id, CONCAT(first_name, ' ', last_name) AS full_name
-            FROM school.professor
-            WHERE LOWER(status) = 'active'
-            ORDER BY full_name;";
-
-                using var cmd = new MySqlCommand(sql, connection);
-                using var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    int id = reader.GetInt32("id");
-                    string fullName = reader.GetString("full_name");
-                    professors.Add((id, fullName));
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error al obtener profesores activos: " + ex.Message);
-            }
-            finally
-            {
-                Singleton.CloseConnection();
+                Debug.WriteLine("Error en GetActiveProfessors:");
+                Debug.WriteLine(ex.Message);
             }
 
             return professors;

@@ -12,21 +12,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckDropDown();
+            
         }
 
-        private void CheckDropDown()
-        {
-            if (ddlProfessors.Items.Count > 1)
-            {
-                return;
-            }
-            else
-            {
-                LoadActiveProfessors();
-            }
-        }
-
+public void Check
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -67,12 +56,12 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         private void LoadActiveProfessors()
         {
-            var  teacherActive = TeacherOperations.GetActiveProfessors();
+            var professors = TeacherOperations.GetActiveProfessors();
 
             ddlProfessors.Items.Clear();
             ddlProfessors.Items.Add(new ListItem("Seleccione un profesor", ""));
 
-            foreach (var prof in teacherActive)
+            foreach (var prof in professors)
             {
                 ddlProfessors.Items.Add(new ListItem(prof.FirstName + "  " + prof.LastName, prof.Id.ToString()));
             }

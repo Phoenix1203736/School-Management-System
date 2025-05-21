@@ -364,7 +364,7 @@
     <Compile Include="Model\DataBase\Controllers\SubjectOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\TeacherOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\UserOperations.cs" />
-    <Compile Include="Model\DataBase\SingletonSafe.cs" />
+    <Compile Include="Model\DataBase\Singleton.cs" />
     <Compile Include="Model\Enums\StudentStatus.cs" />
     <Compile Include="Model\Enums\TeacherStatus.cs" />
     <Compile Include="Model\Enums\UserRole.cs" />
