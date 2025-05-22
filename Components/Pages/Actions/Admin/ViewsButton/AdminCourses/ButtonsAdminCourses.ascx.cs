@@ -17,8 +17,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         protected void btnEliminarCurso_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewCourses)this.Page;
-            page.DeleteCourseView();
+         
         }
 
         protected void btnAgregarCurso_Click(object sender, EventArgs e)

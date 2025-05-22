@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Web.DynamicData;
 using System.Web.UI.WebControls;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
@@ -40,20 +38,22 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
                 {
                     Name = txtName.Text,
                     Description = txtDescription.Text,
-                    ID_Teacher = idTeacher,
-                    startDate = startDate,
-                    endDate = endDate,
+                    IdTeacher = idTeacher,
+                    StartDate = startDate,
+                    EndDate = endDate,
                     Active = true // Esto lo puede evaluar InsertSubject también
                 };
 
                 int? result = SubjectOperations.InsertSubject(subject);
-
+                int o = 0;
                 if (result > 0)
                 {
+                    lblMessage.CssClass = "text-success";
                     lblMessage.Text = "Materia guardada exitosamente.";
                 }
                 else
                 {
+                    lblMessage.CssClass = "text-danger";
                     lblMessage.Text = "Error al guardar la materia.";
                 }
             }
@@ -67,7 +67,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         private void LoadActiveProfessors()
         {
-            var  teacherActive = TeacherOperations.GetActiveProfessors();
+            var teacherActive = TeacherOperations.GetActiveProfessors();
 
             ddlProfessors.Items.Clear();
             ddlProfessors.Items.Add(new ListItem("Seleccione un profesor", ""));

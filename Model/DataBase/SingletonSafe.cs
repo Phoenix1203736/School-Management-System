@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using MySqlConnector;
 
 namespace SistemsProyect.Model.DataBase
@@ -30,7 +31,7 @@ namespace SistemsProyect.Model.DataBase
             }
             catch (Exception e)
             {
-
+Debug.WriteLine(e.Message);
             }
             return connection;
         }

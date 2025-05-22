@@ -15,13 +15,13 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
     {
 
         /// <summary>
-        /// txtCurso control.
+        /// dropdownSubjectActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCurso;
+        protected global::System.Web.UI.WebControls.DropDownList dropdownSubjectActive;
 
         /// <summary>
         /// txtAlumno control.
@@ -40,5 +40,14 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVincular;
+
+        /// <summary>
+        /// lblResultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblResultado;
     }
 }

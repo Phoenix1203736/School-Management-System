@@ -12,7 +12,7 @@
         <div class="div2">
             <uc:AddCourse ID="AddCourses" Visible="False" ViewStateMode="Enabled" runat="server"/>
             <uc:AddCourseStudent runat="server" ID="AddStudentCourseV" Visible="false" ViewStateMode="Enabled"/>
-            <uc:SearchCource runat="server" ID="SearchCourse" Visible="false" ViewStateMode="Enabled"/>
+            <asp:PlaceHolder ID="placeHolderAdminView" runat="server" Visible="false"></asp:PlaceHolder>
         </div>
     </div>
 </asp:Content>

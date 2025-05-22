@@ -175,7 +175,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                     command.Parameters.AddWithValue("@newEmail",  student.Email?.Trim());
                     command.Parameters.AddWithValue("@phone",     student.Phone?.Trim());
                     command.Parameters.AddWithValue("@dateEntry", student.DateEntry);
-                    command.Parameters.AddWithValue("@status",    (short)student.Status);
+                    command.Parameters.AddWithValue("@status",   (short)student.Status);
                     command.Parameters.AddWithValue("@oldEmail",  oldEmail.Trim());
 
                     result = command.ExecuteNonQuery();

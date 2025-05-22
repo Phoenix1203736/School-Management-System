@@ -278,8 +278,11 @@
     <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\DeleteCourses.ascx.designer.cs" />
     <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\SearchCourse.ascx.cs">
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>SearchCourse.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\SearchCourse.ascx.designer.cs" />
+    <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\SearchCourse.ascx.designer.cs">
+      <DependentUpon>SearchCourse.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminViewCourses.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -390,10 +393,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Components\Pages\Actions\Teacher\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
@@ -425,6 +424,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Pages\Actions\Teacher\Course\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

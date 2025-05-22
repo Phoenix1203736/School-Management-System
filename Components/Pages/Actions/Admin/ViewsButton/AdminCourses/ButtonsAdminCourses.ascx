@@ -5,11 +5,12 @@
     <div class="d-grid gap-2">
         <asp:Button ID="btnAgregarCurso" runat="server" CssClass="btn btn-primary" Text="Agregar Curso"
             OnClick="btnAgregarCurso_Click" CausesValidation="false" />
-        <asp:Button ID="btnEliminarCurso" runat="server" CssClass="btn btn-danger" Text="Eliminar Curso"
-            OnClick="btnEliminarCurso_Click" CausesValidation="false" />
+        <asp:Button ID="btnAgregarAlumno" runat="server" CssClass="btn btn-success" Text="Agregar Alumnos a Curso"
+                    OnClick="btnAgregarAlumno_Click" CausesValidation="false" />
+        <%--<asp:Button ID="btnEliminarCurso" runat="server" CssClass="btn btn-danger" Text="Eliminar Curso"
+            OnClick="btnEliminarCurso_Click" CausesValidation="false" />--%>
         <asp:Button ID="btnBuscarCurso" runat="server" CssClass="btn btn-info" Text="Buscar Curso"
             OnClick="btnBuscarCurso_Click" CausesValidation="false" />
-        <asp:Button ID="btnAgregarAlumno" runat="server" CssClass="btn btn-success" Text="Agregar Alumno a Curso"
-            OnClick="btnAgregarAlumno_Click" CausesValidation="false" />
+        
     </div>
 </div>

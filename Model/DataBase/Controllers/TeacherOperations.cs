@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using MySqlConnector;
@@ -102,12 +103,18 @@ namespace SistemsProyect.Model.DataBase.Controllers
                     professor = new Teacher
                     {
                         Id = reader.GetInt32("id"),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
+                            ? ""
+                            : reader.GetString("first_name"),
                         LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
                         Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
                         Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
-                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date")) ? DateTime.Now : reader.GetDateTime("hire_date"),
-                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization")) ? "" : reader.GetString("specialization"),
+                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date"))
+                            ? DateTime.Now
+                            : reader.GetDateTime("hire_date"),
+                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization"))
+                            ? ""
+                            : reader.GetString("specialization"),
                         Status = reader.IsDBNull(reader.GetOrdinal("status")) ? "" : reader.GetString("status")
                     };
                 }
@@ -235,12 +242,18 @@ namespace SistemsProyect.Model.DataBase.Controllers
                     professor = new Teacher
                     {
                         Id = reader.GetInt32("id"),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
+                            ? ""
+                            : reader.GetString("first_name"),
                         LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
                         Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
                         Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
-                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date")) ? DateTime.Now : reader.GetDateTime("hire_date"),
-                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization")) ? "" : reader.GetString("specialization"),
+                        HireDate = reader.IsDBNull(reader.GetOrdinal("hire_date"))
+                            ? DateTime.Now
+                            : reader.GetDateTime("hire_date"),
+                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization"))
+                            ? ""
+                            : reader.GetString("specialization"),
                         Status = reader.IsDBNull(reader.GetOrdinal("status")) ? "" : reader.GetString("status")
                     };
                 }
@@ -269,7 +282,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
                     professors.Add(new Teacher
                     {
                         Id = reader.GetInt32("id"),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
+                            ? ""
+                            : reader.GetString("first_name"),
                         LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name")
                     });
                 }
@@ -281,6 +296,87 @@ namespace SistemsProyect.Model.DataBase.Controllers
             }
 
             return professors;
+        }
+
+        public static int? GetTeacherId(string email)
+        {
+            int? TeacherId = null;
+            int? result = null;
+            const string query = @"Select school.professor.id from school.professor where email=@Email";
+            try
+            {
+                using var connection = SingletonSafe.CreateConnection();
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", email);
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            TeacherId = reader.IsDBNull(reader.GetOrdinal("id")) ? (int?)null : reader.GetInt32("id");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Error en GetTeacherId:");
+                Debug.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error en GetTeacherId:");
+                Debug.WriteLine(e.Message);
+            }
+
+
+            return result;
+        }
+
+        public static IEnumerable<Teacher> GetAll()
+        {
+            var list = new List<Teacher>();
+
+            const string query = @"
+                SELECT id, first_name, last_name, email, phone, hire_date, specialization, status 
+                FROM school.professor;";
+
+            try
+            {
+                using var connection = SingletonSafe.CreateConnection();
+                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    return list;
+
+                using var command = new MySqlCommand(query, connection);
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var teacher = new Teacher
+                    {
+                        Id = reader.GetInt32("id"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? null : reader.GetString("first_name"),
+                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? null : reader.GetString("last_name"),
+                        Email = reader.IsDBNull(reader.GetOrdinal("email")) ? null : reader.GetString("email"),
+                        Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? null : reader.GetString("phone"),
+                        HireDate = reader.GetDateTime("hire_date"),
+                        Specialization = reader.IsDBNull(reader.GetOrdinal("specialization")) ? null : reader.GetString("specialization"),
+                        Status = reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
+                    };
+
+                    list.Add(teacher);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine($"MySQL Error in GetAll (Teacher): {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"General Error in GetAll (Teacher): {ex.Message}");
+            }
+
+            return list;
         }
     }
 }

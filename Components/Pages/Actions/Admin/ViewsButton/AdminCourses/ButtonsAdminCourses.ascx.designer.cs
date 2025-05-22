@@ -24,13 +24,13 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         protected global::System.Web.UI.WebControls.Button btnAgregarCurso;
 
         /// <summary>
-        /// btnEliminarCurso control.
+        /// btnAgregarAlumno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarCurso;
+        protected global::System.Web.UI.WebControls.Button btnAgregarAlumno;
 
         /// <summary>
         /// btnBuscarCurso control.
@@ -40,14 +40,5 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBuscarCurso;
-
-        /// <summary>
-        /// btnAgregarAlumno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarAlumno;
     }
 }

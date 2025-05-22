@@ -1,6 +1,5 @@
 ﻿﻿using System;
- using System.Diagnostics;
- using System.Web;
+using System.Web;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
 using SistemsProyect.Model.Enums;
@@ -44,6 +43,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                     result = StudentOperations.GetStudentByEmail(searchTerm);
                 }
 
+                int i = 0;
                 if (result > 0)
                 {
                     // User user = (User)HttpContext.Current.Session["user"];
@@ -111,7 +111,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
             catch (Exception ex)
             {
-                Debug.WriteLine($"erorr en btnSave_Click: {ex}");
                 // ShowMessage($"Error al guardar: {ex.Message}", "text-danger");
             }
         }

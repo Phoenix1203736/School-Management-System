@@ -12,11 +12,11 @@ Src="~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/Views/AddStudent.
             <asp:PlaceHolder ID="placeHolderStudentButtons" runat="server" />
         </div>
         <div class="div2">
-            <!-- Ejemplo de cómo usar el control registrado -->
-            <uc:AddStudent runat="server" ID="addStudentControl" Visible="false" />
-            <uc:SearchStudent runat="server" ID="SearchStudentControl" Visible="false"/>
-            <uc:ChangeStatus runat="server" ID="ChangeStatusControl" Visible="false"/>
-           
+         
+            <uc:AddStudent runat="server" ID="addStudentControl" Visible="false" ViewStateMode="True" />
+            <uc:SearchStudent runat="server" ID="SearchStudentControl" Visible="false" ViewStateMode="Inherit" />
+            <uc:ChangeStatus runat="server" ID="ChangeStatusControl" Visible="false" ViewStateMode="Inherit"/>
+            
         </div>
     </div>
 </asp:Content>
