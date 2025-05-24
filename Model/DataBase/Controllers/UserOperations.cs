@@ -29,7 +29,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                     {
                         User user = new User();
 
-                        user.Name = reader.IsDBNull(reader.GetOrdinal("name"))
+                        user.FirstName = reader.IsDBNull(reader.GetOrdinal("name"))
                             ? string.Empty
                             : reader.GetString("name");
 

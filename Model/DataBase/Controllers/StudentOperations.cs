@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web;
 using MySqlConnector;
@@ -44,14 +45,14 @@ namespace SistemsProyect.Model.DataBase.Controllers
         public static int? GetStudentByEmail(string email)
         {
             int? result = null;
-            string _query = @"
+            string query = @"
                 SELECT id, first_name, last_name, birth_day, email, phone, date_entry, `status`
                 FROM school.students 
                 WHERE email = @email 
                 LIMIT 1;";
 
             using var connection = SingletonSafe.CreateConnection();
-            using var command = new MySqlCommand(_query, connection);
+            using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@email", email);
 
             using var reader = command.ExecuteReader();
@@ -59,24 +60,28 @@ namespace SistemsProyect.Model.DataBase.Controllers
             {
                 var student = new Student
                 {
-                    Id        = reader.GetInt32(reader.GetOrdinal("id")),
+                    Id = reader.GetInt32(reader.GetOrdinal("id")),
                     FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
-                    LastName  = reader.IsDBNull(reader.GetOrdinal("last_name"))  ? "" : reader.GetString("last_name"),
-                    Email     = reader.IsDBNull(reader.GetOrdinal("email"))      ? "" : reader.GetString("email"),
-                    Phone     = reader.IsDBNull(reader.GetOrdinal("phone"))      ? "" : reader.GetString("phone"),
-                    BirthDate = reader.IsDBNull(reader.GetOrdinal("birth_day"))  ? DateTime.Now : reader.GetDateTime("birth_day"),
-                    DateEntry = reader.IsDBNull(reader.GetOrdinal("date_entry")) ? DateTime.Now : reader.GetDateTime("date_entry"),
-                    Status    = Enum.TryParse(
-                                  reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
-                                  true,
-                                  out StudentStatus status)
-                                ? status
-                                : StudentStatus.Inactive
+                    LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
+                    Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
+                    Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
+                    BirthDate = reader.IsDBNull(reader.GetOrdinal("birth_day"))
+                        ? DateTime.Now
+                        : reader.GetDateTime("birth_day"),
+                    DateEntry = reader.IsDBNull(reader.GetOrdinal("date_entry"))
+                        ? DateTime.Now
+                        : reader.GetDateTime("date_entry"),
+                    Status = Enum.TryParse(
+                        reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
+                        true,
+                        out StudentStatus status)
+                        ? status
+                        : StudentStatus.Inactive
                 };
 
                 result = reader.IsDBNull(reader.GetOrdinal("id"))
-                         ? 0
-                         : reader.GetInt32(reader.GetOrdinal("id"));
+                    ? 0
+                    : reader.GetInt32(reader.GetOrdinal("id"));
                 HttpContext.Current.Session["student"] = student;
             }
 
@@ -86,14 +91,14 @@ namespace SistemsProyect.Model.DataBase.Controllers
         public static int? GetStudentByPhone(string phone)
         {
             int? result = null;
-            string _query = @"
+            string query = @"
                 SELECT id, first_name, last_name, birth_day, email, phone, date_entry, `status`
                 FROM school.students 
                 WHERE phone = @phone 
                 LIMIT 1;";
 
             using var connection = SingletonSafe.CreateConnection();
-            using var command = new MySqlCommand(_query, connection);
+            using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@phone", phone);
 
             using var reader = command.ExecuteReader();
@@ -101,31 +106,35 @@ namespace SistemsProyect.Model.DataBase.Controllers
             {
                 var student = new Student
                 {
-                    Id        = reader.GetInt32(reader.GetOrdinal("id")),
+                    Id = reader.GetInt32(reader.GetOrdinal("id")),
                     FirstName = reader.IsDBNull(reader.GetOrdinal("first_name")) ? "" : reader.GetString("first_name"),
-                    LastName  = reader.IsDBNull(reader.GetOrdinal("last_name"))  ? "" : reader.GetString("last_name"),
-                    Email     = reader.IsDBNull(reader.GetOrdinal("email"))      ? "" : reader.GetString("email"),
-                    Phone     = reader.IsDBNull(reader.GetOrdinal("phone"))      ? "" : reader.GetString("phone"),
-                    BirthDate = reader.IsDBNull(reader.GetOrdinal("birth_day"))  ? DateTime.Now : reader.GetDateTime("birth_day"),
-                    DateEntry = reader.IsDBNull(reader.GetOrdinal("date_entry")) ? DateTime.Now : reader.GetDateTime("date_entry"),
-                    Status    = Enum.TryParse(
-                                  reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
-                                  true,
-                                  out StudentStatus status)
-                                ? status
-                                : StudentStatus.Inactive
+                    LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
+                    Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
+                    Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
+                    BirthDate = reader.IsDBNull(reader.GetOrdinal("birth_day"))
+                        ? DateTime.Now
+                        : reader.GetDateTime("birth_day"),
+                    DateEntry = reader.IsDBNull(reader.GetOrdinal("date_entry"))
+                        ? DateTime.Now
+                        : reader.GetDateTime("date_entry"),
+                    Status = Enum.TryParse(
+                        reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
+                        true,
+                        out StudentStatus status)
+                        ? status
+                        : StudentStatus.Inactive
                 };
 
                 result = reader.IsDBNull(reader.GetOrdinal("id"))
-                         ? 0
-                         : reader.GetInt32(reader.GetOrdinal("id"));
+                    ? 0
+                    : reader.GetInt32(reader.GetOrdinal("id"));
                 HttpContext.Current.Session["student"] = student;
             }
 
             return result;
         }
 
-        public static int? UpdateStudent(Student student, string oldEmail)
+        public static int? UpdateStudent(Student? student, string oldEmail)
         {
             if (student == null || string.IsNullOrWhiteSpace(oldEmail))
             {
@@ -170,13 +179,15 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 using (var command = new MySqlCommand(updateSql, connection))
                 {
                     command.Parameters.AddWithValue("@firstName", student.FirstName?.Trim());
-                    command.Parameters.AddWithValue("@lastName",  student.LastName?.Trim());
-                    command.Parameters.AddWithValue("@birthDay",  student.BirthDate);
-                    command.Parameters.AddWithValue("@newEmail",  student.Email?.Trim());
-                    command.Parameters.AddWithValue("@phone",     student.Phone?.Trim());
+                    command.Parameters.AddWithValue("@lastName", student.LastName?.Trim());
+                    command.Parameters.AddWithValue("@birthDay", student.BirthDate);
+                    command.Parameters.AddWithValue("@newEmail", student.Email?.Trim());
+                    command.Parameters.AddWithValue("@phone", student.Phone?.Trim());
                     command.Parameters.AddWithValue("@dateEntry", student.DateEntry);
-                    command.Parameters.AddWithValue("@status",   (short)student.Status);
-                    command.Parameters.AddWithValue("@oldEmail",  oldEmail.Trim());
+#pragma warning disable CS8629 // Nullable value type may be null.
+                    command.Parameters.AddWithValue("@status", (short)student.Status);
+#pragma warning restore CS8629 // Nullable value type may be null.
+                    command.Parameters.AddWithValue("@oldEmail", oldEmail.Trim());
 
                     result = command.ExecuteNonQuery();
                 }
@@ -191,6 +202,64 @@ namespace SistemsProyect.Model.DataBase.Controllers
             }
 
             return result;
+        }
+
+        public static IEnumerable<Student> GetStudentsBySubject(int subjectId)
+        {
+            var students = new List<Student>();
+
+            const string query = @"
+        SELECT s.id, s.first_name, s.last_name, s.birth_day, s.email, s.phone, s.date_entry, s.status
+        FROM school.students s
+        INNER JOIN school.student_subject ss ON s.id = ss.id_student
+        WHERE ss.id_subject = @subjectId
+        ORDER BY s.last_name, s.first_name;
+    ";
+
+            try
+            {
+                using var connection = SingletonSafe.CreateConnection();
+                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    return students;
+
+                using var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@subjectId", subjectId);
+
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var student = new Student
+                    {
+                        Id = reader.GetInt32("id"),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("first_name"))
+                            ? ""
+                            : reader.GetString("first_name"),
+                        LastName = reader.IsDBNull(reader.GetOrdinal("last_name")) ? "" : reader.GetString("last_name"),
+                        Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString("email"),
+                        Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString("phone"),
+                        BirthDate = reader.IsDBNull(reader.GetOrdinal("birth_day"))
+                            ? DateTime.MinValue
+                            : reader.GetDateTime("birth_day"),
+                        DateEntry = reader.IsDBNull(reader.GetOrdinal("date_entry"))
+                            ? DateTime.MinValue
+                            : reader.GetDateTime("date_entry"),
+                        Status = Enum.TryParse(
+                            reader.IsDBNull(reader.GetOrdinal("status")) ? null : reader.GetString("status"),
+                            true,
+                            out StudentStatus status)
+                            ? status
+                            : StudentStatus.Inactive
+                    };
+                    students.Add(student);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error en GetStudentsBySubject: {ex.Message}");
+            }
+
+            return students;
         }
     }
 }

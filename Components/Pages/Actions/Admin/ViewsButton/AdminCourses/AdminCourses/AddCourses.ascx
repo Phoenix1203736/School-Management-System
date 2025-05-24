@@ -12,7 +12,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="txtName" class="form-label">Nombre de la materia</label>
+        <label for="txtFirstName" class="form-label">Nombre de la materia</label>
         <asp:TextBox ID="txtName" runat="server" CssClass="form-control" />
     </div>
 

@@ -16,7 +16,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             dropdownSubjectActive.Items.Clear();
             var materias = SubjectOperations.ListActiveSubjects(1); // trae solo activas
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             foreach (var materia in materias)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             {
                 dropdownSubjectActive.Items.Add(new ListItem(materia.Name, materia.Id.ToString()));
             }

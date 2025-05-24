@@ -115,7 +115,9 @@ string oldEmail= teacher.Email;
 
         private void DisplayTeacherData(Model.Classes.Teacher? teacher)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             txtID.Text = teacher.Id.ToString();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             txtFirstName.Text = teacher.FirstName ?? "";
             txtLastName.Text = teacher.LastName ?? "";
             txtEmail.Text = teacher.Email ?? "";

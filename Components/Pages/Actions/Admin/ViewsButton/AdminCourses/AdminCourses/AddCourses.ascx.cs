@@ -45,7 +45,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
                 };
 
                 int? result = SubjectOperations.InsertSubject(subject);
-                int o = 0;
                 if (result > 0)
                 {
                     lblMessage.CssClass = "text-success";

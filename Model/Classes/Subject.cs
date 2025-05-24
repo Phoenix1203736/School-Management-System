@@ -11,7 +11,7 @@ namespace SistemsProyect.Model.Classes
         public DateTime? EndDate { get; set; }
         public bool? Active { get; set; }
         public string? Description { get; set; }
-
+public DateTime? Date { get; set; }
         public Subject()
         {
         }

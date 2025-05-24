@@ -67,7 +67,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 using var connection = SingletonSafe.CreateConnection();
 
                 using MySqlCommand command = new MySqlCommand(_query, connection);
-                command.Parameters.AddWithValue("@name", teacher.FirstName);
+                command.Parameters.AddWithValue("@name", teacher.FirstName+" "+teacher.LastName);
                 command.Parameters.AddWithValue("@email", teacher.Email);
                 command.Parameters.AddWithValue("@password", teacher.Password);
                 command.Parameters.AddWithValue("@phone", teacher.Phone);

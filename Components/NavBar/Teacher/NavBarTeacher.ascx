@@ -7,9 +7,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= ResolveUrl("~/Components/Pages/TeacherViews/TeacherViews.aspx") %>">Administrar Cursos</a>
+                    <a class="nav-link" href="<%= ResolveUrl("~/Components/Pages/Actions/Teacher/Course/Assistance/AssistantView.aspx") %>">Asistencias de cursos</a>
                 </li>
-              
+              <li class="navbar-nav">
+                  <a class="nav-link" href="<%= ResolveUrl("~/Components/Pages/Actions/Teacher/Course/Asigment/Assigment.aspx")%>">Tareas de cursos </a>
+              </li>
             </ul>
         </div>
     </div>

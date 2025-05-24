@@ -10,7 +10,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="txtName">Nombre</label>
+                <label for="txtFirstName">Nombre</label>
                 <asp:TextBox ID="txtName" runat="server" CssClass="form-control" />
             </div>
 

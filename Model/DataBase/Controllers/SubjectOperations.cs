@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Web;
 using MySqlConnector;
 using SistemsProyect.Model.Classes;
 
@@ -58,7 +59,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 @"SELECT id, name, id_professor, start_date, end_date, active, description 
           FROM school.subjects ";
 
-            using (MySqlConnection connection = SingletonSafe.CreateConnection())
+            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
@@ -91,23 +92,63 @@ namespace SistemsProyect.Model.DataBase.Controllers
         public static List<Subject>? ListActiveSubjects(short active)
         {
             var list = new List<Subject>();
-            const string query = @"SELECT id, name FROM school.subjects WHERE active = @active;";
 
-            using (MySqlConnection connection = SingletonSafe.CreateConnection())
+            // Consulta SQL con JOIN y alias para columnas del profesor
+            const string query = @"
+        SELECT 
+            s.id, 
+            s.name, 
+            s.active,
+            p.id AS professor_id,
+            CONCAT(p.first_name, ' ', p.last_name) AS professor_fullname,
+            p.email
+        FROM school.subjects s
+        JOIN school.professor p ON s.id_professor = p.id
+        WHERE s.active = @active;
+    ";
+
+            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@active", active);
+
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-
                         while (reader.Read())
                         {
                             var subject = new Subject
                             {
-                                Id = reader.IsDBNull(reader.GetOrdinal("id")) ? 0 : reader.GetInt32("id"),
-                                Name = reader.IsDBNull(reader.GetOrdinal("name")) ? "" : reader.GetString("name")
+                                Id = reader.IsDBNull(reader.GetOrdinal("id"))
+                                    ? 0
+                                    : reader.GetInt32(reader.GetOrdinal("id")),
+                                Name = reader.IsDBNull(reader.GetOrdinal("name"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("name")),
+                                Active = reader.IsDBNull(reader.GetOrdinal("active"))
+                                    ? false
+                                    : reader.GetBoolean(reader.GetOrdinal("active")),
                             };
+
+                            var teacher = new Teacher
+                            {
+                                Id = reader.IsDBNull(reader.GetOrdinal("professor_id"))
+                                    ? 0
+                                    : reader.GetInt32(reader.GetOrdinal("professor_id")),
+                                FirstName = reader.IsDBNull(reader.GetOrdinal("professor_fullname"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("professor_fullname")),
+                                Email = reader.IsDBNull(reader.GetOrdinal("email"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("email")),
+                            };
+
+                            // Supongo que Subject tiene una propiedad para Teacher, ajusta según tu modelo
+                            if (teacher != null)
+                            {
+                                HttpContext.Current.Session["teacher"] =
+                                    teacher; // Guardar en sesión si quieres usarlo después
+                            }
 
                             list.Add(subject);
                         }
@@ -117,6 +158,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             return list;
         }
+
 
         public static Subject? GetById(int id)
         {
@@ -145,7 +187,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
                         StartDate = reader.GetDateTime("start_date"),
                         EndDate = reader.GetDateTime("end_date"),
                         Active = reader.GetBoolean("active"),
-                        Description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString("description")
+                        Description = reader.IsDBNull(reader.GetOrdinal("description"))
+                            ? null
+                            : reader.GetString("description")
                     };
                 }
             }
@@ -189,7 +233,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
                         StartDate = reader.GetDateTime("start_date"),
                         EndDate = reader.GetDateTime("end_date"),
                         Active = reader.GetBoolean("active"),
-                        Description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString("description")
+                        Description = reader.IsDBNull(reader.GetOrdinal("description"))
+                            ? null
+                            : reader.GetString("description")
                     };
 
                     list.Add(subject);
@@ -231,6 +277,102 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 return false;
             }
         }
+
+
+       public static List<Subject>? GetSubjectTeacher()
+{
+    var subjects = new List<Subject>();
+
+    User? user = (User?)HttpContext.Current.Session["user"];
+    if (user == null)
+        return null;
+
+    const string query = @"
+        SELECT 
+            s.id,
+            s.name,
+            s.active,
+            p.id AS professor_id,
+            p.first_name,
+            p.last_name,
+            p.email,
+            concat(p.first_name,' ',p.last_name) AS fullname,
+            CURRENT_DATE() AS date  -- Aquí obtienes la fecha actual del servidor SQL
+        FROM 
+            school.subjects s
+        JOIN 
+            school.professor p ON p.id = s.id_professor
+        WHERE 
+            concat(p.first_name,' ',p.last_name) = @fullName
+            AND s.active = 1;
+    ";
+
+    using (MySqlConnection? connection = SingletonSafe.CreateConnection())
+    {
+        if (connection == null)
+            return null;
+
+        using (MySqlCommand command = new MySqlCommand(query, connection))
+        {
+            string fullNameParam = (user.FirstName ?? "") + " " + (user.LastName ?? "");
+            command.Parameters.AddWithValue("@fullName", fullNameParam.Trim());
+
+            // Debug.WriteLine(fullNameParam);
+
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                int rowsCount = 0;
+
+                while (reader.Read())
+                {
+                    rowsCount++;
+
+                    var subject = new Subject
+                    {
+                        Id = reader.IsDBNull(reader.GetOrdinal("id"))
+                            ? 0
+                            : reader.GetInt32(reader.GetOrdinal("id")),
+                        Name = reader.IsDBNull(reader.GetOrdinal("name"))
+                            ? string.Empty
+                            : reader.GetString(reader.GetOrdinal("name")).Trim(),
+                        Active = reader.IsDBNull(reader.GetOrdinal("active"))
+                            ? false
+                            : reader.GetBoolean(reader.GetOrdinal("active")),
+
+                        // Agregamos la fecha aquí:
+                        Date = reader.IsDBNull(reader.GetOrdinal("date"))
+                            ? DateTime.MinValue
+                            : reader.GetDateTime(reader.GetOrdinal("date"))
+                    };
+
+                    var teacher = new Teacher
+                    {
+                        Id = reader.IsDBNull(reader.GetOrdinal("professor_id"))
+                            ? 0
+                            : reader.GetInt32(reader.GetOrdinal("professor_id")),
+                        FirstName = reader.IsDBNull(reader.GetOrdinal("fullname"))
+                            ? string.Empty
+                            : reader.GetString(reader.GetOrdinal("fullname")).Trim(),
+                        Email = reader.IsDBNull(reader.GetOrdinal("email"))
+                            ? string.Empty
+                            : reader.GetString(reader.GetOrdinal("email")).Trim()
+                    };
+
+                    HttpContext.Current.Session["teacher"] = teacher;
+
+                    subjects.Add(subject);
+                }
+
+                if (rowsCount == 0)
+                {
+                    // No se encontraron resultados
+                }
+            }
+        }
+    }
+
+    return subjects;
+}
 
     }
 }

@@ -13,7 +13,7 @@
             <asp:TextBox ID="textBoxFirstName" runat="server" CssClass="form-control" />
             <asp:RequiredFieldValidator ID="validatorFirstName" runat="server" ControlToValidate="textBoxFirstName"
                 ErrorMessage="Campo obligatorio" CssClass="text-danger" Display="Dynamic" />
-            <!--Last Name -->
+            <!--Last FirstName -->
             <div class="mb-3">
                 <label class="form-label">Apellidos</label>
                 <asp:TextBox ID="textBoxLastName" runat="server" CssClass="form-control" />

@@ -55,7 +55,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             if (int.TryParse(ddlSubjects.SelectedValue, out int id))
             {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 Subject materia = SubjectOperations.GetById(id);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                 if (materia != null)
                 {
                     txtId.Text = materia.Id.ToString();

@@ -176,6 +176,11 @@
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\AdminView.aspx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\Buttonsteacher.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\StylesAdminView.css" />
+    <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Assigment.aspx" />
+    <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Styles.css" />
+    <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\AddAsigment.ascx" />
+    <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\GradeAsigment.ascx" />
+    <Content Include="Components\Pages\Actions\Teacher\Course\Assistance\AssistantView.aspx" />
     <Content Include="Components\Pages\Login\Login.aspx" />
     <Content Include="Components\Pages\Login\LoginStyles.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -341,6 +346,34 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\Buttonsteacher.ascx.designer.cs" />
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Assigment.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Assigment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Assigment.aspx.designer.cs">
+      <DependentUpon>Assigment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\AddAsigment.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>AddAsigment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\AddAsigment.ascx.designer.cs">
+      <DependentUpon>AddAsigment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\GradeAsigment.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>GradeAsigment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\GradeAsigment.ascx.designer.cs">
+      <DependentUpon>GradeAsigment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Assistance\AssistantView.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>AssistantView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Teacher\Course\Assistance\AssistantView.aspx.designer.cs">
+      <DependentUpon>AssistantView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Components\Pages\Login\Login.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -358,16 +391,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\Classes\Assignament.cs" />
+    <Compile Include="Model\Classes\Attendance.cs" />
     <Compile Include="Model\Classes\PasswordGenerator.cs" />
     <Compile Include="Model\Classes\Student.cs" />
     <Compile Include="Model\Classes\Subject.cs" />
     <Compile Include="Model\Classes\Teacher.cs" />
     <Compile Include="Model\Classes\User.cs" />
+    <Compile Include="Model\DataBase\Controllers\AssigmentOperations.cs" />
+    <Compile Include="Model\DataBase\Controllers\AttendanceOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\StudentOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\SubjectOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\TeacherOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\UserOperations.cs" />
     <Compile Include="Model\DataBase\SingletonSafe.cs" />
+    <Compile Include="Model\Enums\AttendanceStatus.cs" />
     <Compile Include="Model\Enums\StudentStatus.cs" />
     <Compile Include="Model\Enums\TeacherStatus.cs" />
     <Compile Include="Model\Enums\UserRole.cs" />
@@ -426,7 +463,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Pages\Actions\Teacher\Course\" />
+    <Folder Include="Components\Pages\Actions\Admin\ViewsButton\Reports\" />
+    <Folder Include="Components\Pages\Actions\Teacher\Grades\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

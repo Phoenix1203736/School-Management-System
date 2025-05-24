@@ -17,7 +17,7 @@
                 Display="Dynamic" />
         </div>
 
-        <!-- Last Name -->
+        <!-- Last FirstName -->
         <div class="mb-3">
             <label class="form-label">Apellidos</label>
             <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control" />
