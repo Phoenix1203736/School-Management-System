@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web;
 using MySqlConnector;
 using SistemsProyect.Model.Classes;
+// ReSharper disable All
 
 namespace SistemsProyect.Model.DataBase.Controllers
 {
@@ -89,7 +89,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
         }
 
 
-        public static List<Subject>? ListActiveSubjects(short active)
+        public static List<Subject> ListActiveSubjects(short active)
         {
             var list = new List<Subject>();
 
@@ -130,7 +130,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                                     : reader.GetBoolean(reader.GetOrdinal("active")),
                             };
 
-                            var teacher = new Teacher
+                            Teacher? teacher = new Teacher
                             {
                                 Id = reader.IsDBNull(reader.GetOrdinal("professor_id"))
                                     ? 0

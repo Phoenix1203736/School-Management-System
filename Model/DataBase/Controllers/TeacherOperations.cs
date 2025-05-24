@@ -298,7 +298,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             return professors;
         }
 
-        public static int? GetTeacherId(string email)
+        /*public static int? GetTeacherId(string email)
         {
             int? TeacherId = null;
             int? result = null;
@@ -331,7 +331,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
 
             return result;
-        }
+        }*/
 
         public static IEnumerable<Teacher> GetAll()
         {

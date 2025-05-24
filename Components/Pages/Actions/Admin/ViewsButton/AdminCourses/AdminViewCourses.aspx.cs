@@ -8,6 +8,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadButtons();
+            
         }
 
         private void LoadButtons()
@@ -17,7 +18,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
             placeHolderAdminButtons.Controls.Add(control);
         }
 
-        private void ReloadActiveControl()
+        /*private void ReloadActiveControl()
         {
             if (ViewState["ActiveControl"] == null)
                 return;
@@ -31,7 +32,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
                     break;
                 /*case "DeleteCourse":
                     
-                    break;*/
+                    break;#1#
                 case "AddCourseStudent":
                     AddStudentsCourse() ;
                     break;
@@ -43,7 +44,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
                    HideAllViews();
                     break;
             }
-        }
+        }*/
 
         public void CancelButton()
         {

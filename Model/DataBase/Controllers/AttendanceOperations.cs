@@ -8,7 +8,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class AttendanceOperations
     {
-        public static bool UpsertAttendance(Attendance attendance)
+        public static bool UpsertAttendance(Attendance? attendance)
         {
             if (attendance == null)
                 return false;
@@ -47,7 +47,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             }
         }
 
-        public static Attendance GetAttendanceByStudentAndDate(int subjectId, int studentId, DateTime date)
+        public static Attendance? GetAttendanceByStudentAndDate(int subjectId, int studentId, DateTime date)
         {
             const string query = @"
         SELECT id, id_subject, id_student, attendances, date

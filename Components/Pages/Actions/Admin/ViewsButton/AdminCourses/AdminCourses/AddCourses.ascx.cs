@@ -17,6 +17,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             if (ddlProfessors.Items.Count > 1)
             {
+                // ReSharper disable once RedundantJumpStatement
                 return;
             }
             else

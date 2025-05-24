@@ -37,6 +37,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
             int updated = 0;
             foreach (GridViewRow row in gvGrades.Rows)
             {
+                // ReSharper disable once PossibleNullReferenceException
                 int assignmentId = Convert.ToInt32(gvGrades.DataKeys[row.RowIndex].Value);
                 var txtGrade = row.FindControl("txtGrade") as TextBox;
                 if (txtGrade != null && int.TryParse(txtGrade.Text, out int grade))
