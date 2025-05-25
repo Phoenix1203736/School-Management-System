@@ -15,6 +15,12 @@
                <li class="navbar-nav">
                    <a class="nav-link" href="<%= ResolveUrl("~/Components/Pages/Actions/Teacher/Grades/FinalGrades.aspx") %>">Asignar Calificación Final </a>
                </li>
+               <li class="nav-item ">
+                   <a class="nav-link">
+                       <asp:Button CssClass="btn btn-dark" runat="server" ID="buttonSignOut" OnClick="buttonSignOut_Click"
+                                   Text="Cerrar Sesión" />
+                   </a>
+               </li>
             </ul>
         </div>
     </div>

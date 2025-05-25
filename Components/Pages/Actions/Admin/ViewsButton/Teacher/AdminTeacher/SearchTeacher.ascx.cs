@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.UI;
 using SistemsProyect.Model.DataBase.Controllers;
-using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.AdminTeacher
 {
@@ -45,8 +44,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
                 {
                     HttpContext.Current.Session["teacher"] = teacher; // Guardar en sesión si quieres usarlo después
                     DisplayTeacherData(teacher);
-                    message.Text="Profesor encontrado";
-                    message.CssClass = "text-success";
+                    // message.Text = "Profesor encontrado";
+                    // message.CssClass = "text-success";
                     ShowMessage("Profesor encontrado", "text-success");
                     pnlEditTeacher.Visible = true;
                 }
@@ -54,8 +53,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
                 {
                     pnlEditTeacher.Visible = false;
                     ClearTeacherData();
-                    message.Text = "No se encontró ningún profesor";
-                    message.CssClass = "text-danger";
+                    // message.Text = "No se encontró ningún profesor";
+                    // message.CssClass = "text-danger";
                     ShowMessage("No se encontró ningún profesor", "text-danger");
                 }
             }
@@ -77,7 +76,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
                 }
 
                 // Supongamos que tienes guardado el email antiguo antes de la edición
-               
+
 
                 var teacher = new Model.Classes.Teacher
                 {
@@ -94,7 +93,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
 
                 // Actualizar en tabla professor
                 int? result1 = TeacherOperations.UpdateTeacher(teacher);
-string oldEmail= teacher.Email;
+                string oldEmail = teacher.Email;
                 // Actualizar en tabla users
                 int? result2 = TeacherOperations.UpdateTeacherInUsers(teacher, oldEmail);
 
@@ -124,6 +123,7 @@ string oldEmail= teacher.Email;
             txtPhone.Text = teacher.Phone ?? "";
             txtHireDate.Text = teacher.HireDate.ToString("yyyy-MM-dd");
             txtSpecialization.Text = teacher.Specialization ?? "";
+            // ReSharper disable once AssignNullToNotNullAttribute
             if (!string.IsNullOrEmpty(teacher.Status) && ddlStatus.Items.FindByValue(teacher.Status) != null)
             {
                 ddlStatus.SelectedValue = teacher.Status;
@@ -161,14 +161,14 @@ string oldEmail= teacher.Email;
         {
             // Implementa aquí el mecanismo para mostrar mensajes al usuario.
             // Ejemplo con un Label llamado lblMessage:
-            // lblMessage.Text = message;
-            // lblMessage.CssClass = cssClass;
-            // lblMessage.Visible = true;
+            lblmessage.Text = message;
+            lblmessage.CssClass = cssClass;
+            lblmessage.Visible = true;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            var page = (AdminViews)this.Page ;
+            var page = (AdminViews)this.Page;
             page.CancelButtons();
         }
     }

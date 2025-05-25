@@ -378,5 +378,30 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             return list;
         }
+        public static int? ChangeStatus(int id, string status)
+        {
+            string query = @"UPDATE school.professor SET `status`=@status WHERE id=@id;";
+            int? result = null;
+            try
+            {
+                using (MySqlConnection connection = SingletonSafe.CreateConnection())
+                {
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@status", status);
+                        command.Parameters.AddWithValue("@id", id);
+
+                        result = command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine(e.Message);
+                return 0;
+            }
+
+            return result;
+        }
     }
 }

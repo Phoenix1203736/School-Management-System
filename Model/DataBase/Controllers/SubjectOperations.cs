@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Web;
 using MySqlConnector;
 using SistemsProyect.Model.Classes;
+
 // ReSharper disable All
 
 namespace SistemsProyect.Model.DataBase.Controllers
@@ -279,15 +280,15 @@ namespace SistemsProyect.Model.DataBase.Controllers
         }
 
 
-       public static List<Subject>? GetSubjectTeacher()
-{
-    var subjects = new List<Subject>();
+        public static List<Subject>? GetSubjectTeacher()
+        {
+            var subjects = new List<Subject>();
 
-    User? user = (User?)HttpContext.Current.Session["user"];
-    if (user == null)
-        return null;
+            User? user = (User?)HttpContext.Current.Session["user"];
+            if (user == null)
+                return null;
 
-    const string query = @"
+            const string query = @"
         SELECT 
             s.id,
             s.name,
@@ -307,72 +308,95 @@ namespace SistemsProyect.Model.DataBase.Controllers
             AND s.active = 1;
     ";
 
-    using (MySqlConnection? connection = SingletonSafe.CreateConnection())
-    {
-        if (connection == null)
-            return null;
-
-        using (MySqlCommand command = new MySqlCommand(query, connection))
-        {
-            string fullNameParam = (user.FirstName ?? "") + " " + (user.LastName ?? "");
-            command.Parameters.AddWithValue("@fullName", fullNameParam.Trim());
-
-            // Debug.WriteLine(fullNameParam);
-
-            using (MySqlDataReader reader = command.ExecuteReader())
+            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
             {
-                int rowsCount = 0;
+                if (connection == null)
+                    return null;
 
-                while (reader.Read())
+                using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    rowsCount++;
+                    string fullNameParam = (user.FirstName ?? "") + " " + (user.LastName ?? "");
+                    command.Parameters.AddWithValue("@fullName", fullNameParam.Trim());
 
-                    var subject = new Subject
+                    // Debug.WriteLine(fullNameParam);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        Id = reader.IsDBNull(reader.GetOrdinal("id"))
-                            ? 0
-                            : reader.GetInt32(reader.GetOrdinal("id")),
-                        Name = reader.IsDBNull(reader.GetOrdinal("name"))
-                            ? string.Empty
-                            : reader.GetString(reader.GetOrdinal("name")).Trim(),
-                        Active = reader.IsDBNull(reader.GetOrdinal("active"))
-                            ? false
-                            : reader.GetBoolean(reader.GetOrdinal("active")),
+                        int rowsCount = 0;
 
-                        // Agregamos la fecha aquí:
-                        Date = reader.IsDBNull(reader.GetOrdinal("date"))
-                            ? DateTime.MinValue
-                            : reader.GetDateTime(reader.GetOrdinal("date"))
-                    };
+                        while (reader.Read())
+                        {
+                            rowsCount++;
 
-                    var teacher = new Teacher
-                    {
-                        Id = reader.IsDBNull(reader.GetOrdinal("professor_id"))
-                            ? 0
-                            : reader.GetInt32(reader.GetOrdinal("professor_id")),
-                        FirstName = reader.IsDBNull(reader.GetOrdinal("fullname"))
-                            ? string.Empty
-                            : reader.GetString(reader.GetOrdinal("fullname")).Trim(),
-                        Email = reader.IsDBNull(reader.GetOrdinal("email"))
-                            ? string.Empty
-                            : reader.GetString(reader.GetOrdinal("email")).Trim()
-                    };
+                            var subject = new Subject
+                            {
+                                Id = reader.IsDBNull(reader.GetOrdinal("id"))
+                                    ? 0
+                                    : reader.GetInt32(reader.GetOrdinal("id")),
+                                Name = reader.IsDBNull(reader.GetOrdinal("name"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("name")).Trim(),
+                                Active = reader.IsDBNull(reader.GetOrdinal("active"))
+                                    ? false
+                                    : reader.GetBoolean(reader.GetOrdinal("active")),
 
-                    HttpContext.Current.Session["teacher"] = teacher;
+                                // Agregamos la fecha aquí:
+                                Date = reader.IsDBNull(reader.GetOrdinal("date"))
+                                    ? DateTime.MinValue
+                                    : reader.GetDateTime(reader.GetOrdinal("date"))
+                            };
 
-                    subjects.Add(subject);
-                }
+                            var teacher = new Teacher
+                            {
+                                Id = reader.IsDBNull(reader.GetOrdinal("professor_id"))
+                                    ? 0
+                                    : reader.GetInt32(reader.GetOrdinal("professor_id")),
+                                FirstName = reader.IsDBNull(reader.GetOrdinal("fullname"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("fullname")).Trim(),
+                                Email = reader.IsDBNull(reader.GetOrdinal("email"))
+                                    ? string.Empty
+                                    : reader.GetString(reader.GetOrdinal("email")).Trim()
+                            };
 
-                if (rowsCount == 0)
-                {
-                    // No se encontraron resultados
+                            HttpContext.Current.Session["teacher"] = teacher;
+
+                            subjects.Add(subject);
+                        }
+
+                        if (rowsCount == 0)
+                        {
+                            // No se encontraron resultados
+                        }
+                    }
                 }
             }
+
+            return subjects;
         }
-    }
 
-    return subjects;
-}
+        public static List<Subject> GetAllSubjects()
+        {
+            var subjects = new List<Subject>();
 
+            using var connection = SingletonSafe.CreateConnection();
+            //connection?.Open();
+
+            const string query = @"SELECT id, name FROM school.subjects ORDER BY name ";
+
+            using var command = new MySqlCommand(query, connection);
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                subjects.Add(new Subject
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("name")
+                });
+            }
+
+            return subjects;
+        }
     }
 }

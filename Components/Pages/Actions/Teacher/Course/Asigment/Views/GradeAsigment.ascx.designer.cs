@@ -24,6 +24,24 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
         protected global::System.Web.UI.WebControls.DropDownList ddlAssignments;
 
         /// <summary>
+        /// txtGradeDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGradeDate;
+
+        /// <summary>
+        /// rfvGradeDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGradeDate;
+
+        /// <summary>
         /// gvGrades control.
         /// </summary>
         /// <remarks>

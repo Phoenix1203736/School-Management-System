@@ -76,6 +76,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
             int? id = int.TryParse(txtId.Text, out int parsedId) ? parsedId : (int?)null;
             int? idTeacher = int.TryParse(ddlTeachers.SelectedValue, out int parsedTeacher) ? parsedTeacher : (int?)null;
 
+            // ReSharper disable once UnusedVariable
             var materia = new Subject
             {
                 Id = id,

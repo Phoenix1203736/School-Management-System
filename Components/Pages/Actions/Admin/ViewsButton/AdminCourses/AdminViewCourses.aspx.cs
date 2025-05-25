@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
