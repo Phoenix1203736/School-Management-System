@@ -1,4 +1,5 @@
 ﻿using System;
+using SistemsProyect.Model.DataBase.Controllers;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views
 {
@@ -17,6 +18,30 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         protected void btnUpdateStatus_Click(object sender, EventArgs e)
         {
             //check id first if the id is null doesnt continue to update the status
+            var helper = txtStudentId.Text;
+            try
+            {
+               int id= Convert.ToInt32(helper);
+                var status = ddlStatus.SelectedValue;
+                int? result = StudentOperations.ChangeStatus(id,status.ToLower());
+
+                if (result > 0)
+                {
+                    lblMessage.Text = "Actualizado correctamente";
+                    lblMessage.CssClass = "text-success";
+                    
+                }
+                else
+                {
+                    lblMessage.Text = "Error: Studiante no actualizado correctamente";
+                }
+            }
+            catch (Exception eq)
+            {
+                lblMessage.Text = "Error: " + "Recuerde que el id es un numero";
+                lblMessage.CssClass = "text-danger";
+                return;
+            }
         }
     }
 }

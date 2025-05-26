@@ -56,6 +56,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         public void CancelButtons()
         {
             placeHolderAdminView.Controls.Clear();
+            
             placeHolderAdminView.Visible = false;
             ViewState["ActiveControl"] = "";
         }

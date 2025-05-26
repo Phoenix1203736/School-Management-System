@@ -10,36 +10,50 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadActiveProfessors();
+            CheckDropDown();
         }
 
+        private void CheckDropDown()
+        {
+            if (ddlProfessors.Items.Count > 1)
+            {
+                // ReSharper disable once RedundantJumpStatement
+                return;
+            }
+            else
+            {
+                LoadActiveProfessors();
+            }
+        }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 int? idTeacher = int.TryParse(ddlProfessors.SelectedValue, out int profId) ? profId : (int?)null;
-                DateTime? startDate = DateTime.TryParse(txtStartDate.Text, out DateTime start) ? start : (DateTime?)null;
+                DateTime? startDate =
+                    DateTime.TryParse(txtStartDate.Text, out DateTime start) ? start : (DateTime?)null;
                 DateTime? endDate = DateTime.TryParse(txtEndDate.Text, out DateTime end) ? end : (DateTime?)null;
 
                 Subject subject = new Subject()
                 {
                     Name = txtName.Text,
                     Description = txtDescription.Text,
-                    ID_Teacher = idTeacher,
-                    startDate = startDate,
-                    endDate = endDate,
+                    IdTeacher = idTeacher,
+                    StartDate = startDate,
+                    EndDate = endDate,
                     Active = true // Esto lo puede evaluar InsertSubject también
                 };
 
                 int? result = SubjectOperations.InsertSubject(subject);
-
                 if (result > 0)
                 {
+                    lblMessage.CssClass = "text-success";
                     lblMessage.Text = "Materia guardada exitosamente.";
                 }
                 else
                 {
+                    lblMessage.CssClass = "text-danger";
                     lblMessage.Text = "Error al guardar la materia.";
                 }
             }
@@ -51,17 +65,16 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         }
 
 
-
         private void LoadActiveProfessors()
         {
-            var professors = TeacherOperations.GetActiveProfessorsDropDown();
+            var teacherActive = TeacherOperations.GetActiveProfessors();
 
             ddlProfessors.Items.Clear();
             ddlProfessors.Items.Add(new ListItem("Seleccione un profesor", ""));
 
-            foreach (var prof in professors)
+            foreach (var prof in teacherActive)
             {
-                ddlProfessors.Items.Add(new ListItem(prof.FullName, prof.Id.ToString()));
+                ddlProfessors.Items.Add(new ListItem(prof.FirstName + "  " + prof.LastName, prof.Id.ToString()));
             }
         }
     }

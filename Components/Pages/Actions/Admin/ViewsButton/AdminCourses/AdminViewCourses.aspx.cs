@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
@@ -8,124 +7,77 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadButtons();
-            ReloadActiveControl();
+            
         }
 
         private void LoadButtons()
         {
-            var control = Page.LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/ButtonsAdminCourses.ascx");
+            var control =
+                Page.LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/ButtonsAdminCourses.ascx");
             placeHolderAdminButtons.Controls.Add(control);
         }
 
-        private void ReloadActiveControl()
+        /*private void ReloadActiveControl()
         {
             if (ViewState["ActiveControl"] == null)
-            {
                 return;
-            }
 
             string active = ViewState["ActiveControl"].ToString();
+
             switch (active)
             {
                 case "AddCourse":
                     AddCourseView();
                     break;
-                case "DeleteCourse":
-                    DeleteCourseView();
-                    break;
+                /*case "DeleteCourse":
+                    
+                    break;#1#
                 case "AddCourseStudent":
-                    AddStudentsCourse();
+                    AddStudentsCourse() ;
                     break;
                 case "SearchCourse":
                     SearchCourseView();
                     break;
                 default:
                     ViewState["ActiveControl"] = null;
+                   HideAllViews();
                     break;
             }
-        }
+        }*/
 
         public void CancelButton()
         {
-            placeHolderAdminView.Controls.Clear();
             ViewState["ActiveControl"] = null;
-            placeHolderAdminView.Visible = false;
+            HideAllViews();
+        }
+
+        private void HideAllViews()
+        {
+            AddCourses.Visible = false;
+            AddStudentCourseV.Visible = false;
+            SearchCourse.Visible = false;
         }
 
         public void AddCourseView()
         {
-            try
-            {
-                placeHolderAdminView.Controls.Clear();
-                ViewState["ActiveControl"] = "AddCourse";
-
-                var control = Page.LoadControl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminCourses/AddCourses.ascx");
-                placeHolderAdminView.Controls.Add(control);
-                placeHolderAdminView.Visible = true;
-                Debug.WriteLine("Control AddCourses loaded");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error {ex.Message}");
-                placeHolderAdminView.Visible = false;
-            }
+            HideAllViews();
+            ViewState["ActiveControl"] = "AddCourse";
+            AddCourses.Visible = true;
         }
 
-        public void DeleteCourseView()
-        {
-            try
-            {
-                placeHolderAdminView.Controls.Clear();
-                ViewState["ActiveControl"] = "DeleteCourse";
-
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/DeleteCourses.ascx");
-                placeHolderAdminView.Controls.Add(control);
-                placeHolderAdminView.Visible = true;
-                Debug.WriteLine("Control DeleteCourses loaded");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error {ex.Message}");
-                placeHolderAdminView.Visible = false;
-            }
-        }
 
         public void AddStudentsCourse()
         {
-            try
-            {
-                placeHolderAdminView.Controls.Clear();
-                ViewState["ActiveControl"] = "AddCourseStudent";
-
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/AddCourseStudent.ascx");
-                placeHolderAdminView.Controls.Add(control);
-                placeHolderAdminView.Visible = true;
-                Debug.WriteLine("Control AddCourseStudent loaded");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error {ex.Message}");
-                placeHolderAdminView.Visible = false;
-            }
+            HideAllViews();
+            ViewState["ActiveControl"] = "AddCourseStudent";
+            AddStudentCourseV.Visible = true;
         }
 
         public void SearchCourseView()
         {
-            try
-            {
-                placeHolderAdminView.Controls.Clear();
-                ViewState["ActiveControl"] = "SearchCourse";
-
-                var control = Page.LoadControl("~/Components/Pages/Admin/AdminCourses/AdminCourses/SearchCourses.ascx");
-                placeHolderAdminView.Controls.Add(control);
-                placeHolderAdminView.Visible = true;
-                Debug.WriteLine("Control SearchCourses loaded");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error {ex.Message}");
-                placeHolderAdminView.Visible = false;
-            }
+            HideAllViews();
+            ViewState["ActiveControl"] = "SearchCourse";
+            SearchCourse.Visible = true;
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
-using System.Web;
+﻿﻿using System;
+ using System.Diagnostics;
+ using System.Web;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
 using SistemsProyect.Model.Enums;
@@ -51,6 +52,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                     DisplayStudentData(student);
                     // ShowMessage("Estudiante encontrado", "text-success");
                     pnlEditStudent.Visible = true;
+                    var page = (AdminViewStudents)this.Page;
+                    page.SearchStudentView();
                 }
                 else
                 {
@@ -108,6 +111,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
             catch (Exception ex)
             {
+                Debug.WriteLine($"erorr en btnSave_Click: {ex}");
                 // ShowMessage($"Error al guardar: {ex.Message}", "text-danger");
             }
         }

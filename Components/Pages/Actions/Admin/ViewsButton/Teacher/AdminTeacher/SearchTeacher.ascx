@@ -3,7 +3,7 @@
 
 <div class="container mt-3">
     <h4>Buscar Profesores</h4>
-    <asp:Label ID="message" runat="server"></asp:Label>
+    <asp:Label ID="lblmessage" runat="server"></asp:Label>
     <!-- Contenedor de búsqueda -->
     <div class="row mb-3">
         <div class="col-md-6">

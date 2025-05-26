@@ -12,54 +12,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         {
         }
 
-        /*protected void btnSave_Click(object sender, EventArgs e)
-        {
-            int? result = null;
-            Debug.WriteLine("btnSave_Click triggered");
-            // Verificar primero la validación del estado
-            if(ddlStatus.SelectedValue == "Select")
-            {
-                lblError.Text = "Debe seleccionar un estado válido para el alumno";
-                lblError.CssClass = "text-danger";
-                lblError.Visible = true;
-                return; // Salir del método si la validación falla
-            }
-
-            try
-            {
-                Student student = new Student();
-                student.FirstName = txtFirstName.Text.Trim();
-                student.LastName = txtLastName.Text.Trim();
-                student.BirthDate = DateTime.Parse(txtBirthDate.Text);
-                student.Email = txtEmail.Text.Trim();
-                student.Phone = txtPhone.Text.Trim();
-                student.DateEntry = DateTime.Parse(txtEntryDate.Text);
-                student.Status = (StudentStatus)Enum.Parse(typeof(StudentStatus), ddlStatus.SelectedValue);
-        
-                result = StudentOperations.AddStudentToStudents(student);
-
-                if(result > 0)
-                {
-                    lblError.Text = "Alumno guardado exitosamente";
-                    lblError.CssClass = "text-success";
-                    ClearForm();
-                }
-                else
-                {
-                    lblError.Text = "Error al guardar. Verifique que el email y teléfono sean únicos.";
-                    lblError.CssClass = "text-danger";
-                }
-                lblError.Visible = true;
-            }
-            catch(Exception ex)
-            {
-                lblError.Text = $"Error: {ex.Message}";
-                lblError.CssClass = "text-danger";
-                lblError.Visible = true;
-                Debug.WriteLine($"Error en btnSave_Click: {ex}");
-            }
-        }*/
-
+      
         private void ClearForm () {
             txtFirstName.Text = string.Empty;
             txtLastName.Text = string.Empty;
@@ -109,7 +62,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                 }
                 else
                 {
-                    lblError.Text = "Error al guardar. Verifique que el email y teléfono sean únicos.";
+                    lblError.Text = "Error al guardar.Recuerda que el email y teléfono sean únicos.";
                     lblError.CssClass = "text-danger";
                 }
                 lblError.Visible = true;

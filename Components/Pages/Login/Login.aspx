@@ -13,7 +13,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-6 login-container bg-white shadow rounded">
                     <h2 class="text-center mb-4">Inicio de Sesión</h2>
-                    
+                    <div class="justify-content-center">
+                        
                     <!-- Email -->
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="txtEmail" CssClass="form-label">Email</asp:Label>
@@ -44,6 +45,7 @@
                         <asp:Label runat="server" ID="lblMensaje" CssClass="text-danger" Visible="false"/>
                     </div>
 
+                    </div>
                     <!-- Enlace de recuperación 
                     <div class="text-center mt-3">
                         <a href="RecuperarPassword.aspx">¿Olvidaste tu contraseña?</a>

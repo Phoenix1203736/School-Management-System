@@ -14,6 +14,7 @@ namespace SistemsProyect.Model.Classes
         public string? Phone { get; set; }
         public DateTime? DateEntry { get; set; }
         public StudentStatus? Status { get; set; }
+        public string FullName => $"{FirstName} {LastName}".Trim();
     }
     //he didnt let's homework
 }

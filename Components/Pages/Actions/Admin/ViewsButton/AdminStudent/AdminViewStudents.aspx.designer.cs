@@ -24,13 +24,31 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         protected global::System.Web.UI.WebControls.PlaceHolder placeHolderStudentButtons;
 
         /// <summary>
-        /// placeHolderStudentView control.
+        /// addStudentControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder placeHolderStudentView;
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.AddStudent addStudentControl;
+
+        /// <summary>
+        /// SearchStudentControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.SearchStudent SearchStudentControl;
+
+        /// <summary>
+        /// ChangeStatusControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.ChangeStatusStudent ChangeStatusControl;
 
         /// <summary>
         /// Master property.

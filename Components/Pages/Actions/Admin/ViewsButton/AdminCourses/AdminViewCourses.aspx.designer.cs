@@ -24,13 +24,31 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         protected global::System.Web.UI.WebControls.PlaceHolder placeHolderAdminButtons;
 
         /// <summary>
-        /// placeHolderAdminView control.
+        /// AddCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder placeHolderAdminView;
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses.AdminCourses.AddCourses AddCourses;
+
+        /// <summary>
+        /// AddStudentCourseV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses.AdminCourses.AddCourseStudent AddStudentCourseV;
+
+        /// <summary>
+        /// SearchCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses.AdminCourses.SearchCourse SearchCourse;
 
         /// <summary>
         /// Master property.

@@ -61,7 +61,7 @@ namespace SistemsProyect.Components.NavBar.Admin
                 if (Session["Teachers"] != null) Session.Remove("Teachers");
                 if (Session["Courses"] != null) Session.Remove("Courses");
                 Session["Reports"] = true;
-                Response.Redirect(ResolveUrl("~/Components/Pages/Admin/AdminReports/AdminViewReports.aspx"));
+                Response.Redirect(ResolveUrl("~/Components/Pages/Actions/Admin/Reports/GenerateReport.aspx"));
             }
         }
 

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SearchStudent.ascx.cs" 
+﻿﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SearchStudent.ascx.cs" 
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.SearchStudent" %>
 
 <div class="container mt-3">

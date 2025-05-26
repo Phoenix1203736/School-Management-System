@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ChangeStatusTeacher.ascx.cs"
+﻿<%@ Control Language="C#"  CodeBehind="ChangeStatusTeacher.ascx.cs"
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.AdminTeacher.ChangeStatusTeacher" %>
 <div class="container mt-4">
     <h4>Cambiar estado del maestro</h4>
