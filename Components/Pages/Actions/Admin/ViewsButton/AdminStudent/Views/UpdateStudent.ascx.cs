@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Web.UI;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views
 {
-    public partial class UpdateStudent : System.Web.UI.UserControl
+    public partial class UpdateStudent : UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {

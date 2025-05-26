@@ -11,12 +11,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
 {
     public partial class GenerateReport : Page
     {
-       protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                LoadSubjects();
-            }
+            if (!IsPostBack) LoadSubjects();
         }
 
         private void LoadSubjects()
@@ -26,14 +23,14 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
             ddlSubjects.DataTextField = "Name";
             ddlSubjects.DataValueField = "Id";
             ddlSubjects.DataBind();
-            ddlSubjects.Items.Insert(0,"Seleccione una materia ");
+            ddlSubjects.Items.Insert(0, "Seleccione una materia ");
             // ddlSubjects.Items.Insert(0, new ListItem("-- Selecciona una materia --", new Font()));
         }
 
 
         protected void ddlSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId))
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId))
             {
                 var reportData = ReportOperations.GetSubjectReport(subjectId);
                 gvReport.DataSource = reportData;
@@ -43,7 +40,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
 
         protected void btnExportPdf_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(ddlSubjects.SelectedValue, out int subjectId)) return;
+            if (!int.TryParse(ddlSubjects.SelectedValue, out var subjectId)) return;
 
             var reportData = ReportOperations.GetSubjectReport(subjectId);
             // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -51,9 +48,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
 
             var first = reportData.First();
 
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
-                Document doc = new Document(PageSize.A4, 20f, 20f, 20f, 20f);
+                var doc = new Document(PageSize.A4, 20f, 20f, 20f, 20f);
                 PdfWriter.GetInstance(doc, ms);
                 doc.Open();
 
@@ -66,7 +63,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
                 doc.Add(new Paragraph($"Fecha: {DateTime.Now:dd/MM/yyyy}", bodyFont));
                 doc.Add(new Paragraph(" "));
 
-                PdfPTable table = new PdfPTable(4) { WidthPercentage = 100 };
+                var table = new PdfPTable(4) { WidthPercentage = 100 };
                 table.SetWidths(new float[] { 4, 2, 2, 2 });
 
                 table.AddCell("Estudiante");

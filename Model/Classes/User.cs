@@ -1,5 +1,4 @@
-﻿
-using SistemsProyect.Model.Enums;
+﻿using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Model.Classes
 {
@@ -13,6 +12,5 @@ namespace SistemsProyect.Model.Classes
         public string? Phone { get; set; }
         public UserRole Role { get; set; }
         public bool? Active { get; set; }
-        
     }
 }

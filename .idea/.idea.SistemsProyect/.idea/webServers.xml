@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d1dce541-086d-45b7-8ed9-14652240e25a" name="Somee" url="https://somee.com/DOKA/DOU/Websites/WebsiteFileManager?mpid=4901473&amp;h1h2h3=e83a2f65bae8f64af17c316e1e089d3f">
+        <fileTransfer accessType="LOCAL" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

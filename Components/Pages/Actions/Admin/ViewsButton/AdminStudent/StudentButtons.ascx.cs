@@ -7,7 +7,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)Page;
             page.CancelButton();
             // page.CancelButton();
         }
@@ -20,19 +20,19 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
         protected void SearchStudent_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)Page;
             page.SearchStudentView();
         }
 
         protected void AddStudentButton_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)Page;
             page.AddStudentView();
         }
 
         protected void ChangeStatusStudent_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)Page;
             page.ChangeStatusStudent();
         }
     }

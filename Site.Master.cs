@@ -12,12 +12,12 @@ namespace SistemsProyect
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           CheckStatusUser();
+            CheckStatusUser();
             // if (Session["User"] == null)
             // {
             //     // Usuario no autenticado
             //     //admin
-             //_navControl = Page.LoadControl("~/Components/NavBar/Admin/NavBarAdmin.ascx");
+            //_navControl = Page.LoadControl("~/Components/NavBar/Admin/NavBarAdmin.ascx");
             //     //guest
             //_navControl = Page.LoadControl("~/Components/NavBar/Guest/NavBarGuest.ascx");
             //     // var navbar = Page.LoadControl(("~/Components/Navbars/Teacher/NavBarTeacher.ascx"));
@@ -40,19 +40,15 @@ namespace SistemsProyect
                 }
                 else
                 {
-                    User user = (User)HttpContext.Current.Session["user"];
+                    var user = (User)HttpContext.Current.Session["user"];
                     if (user.Role.ToString() == UserRole.Guest.ToString())
                         _navControl = LoadControl("~/Components/NavBar/Guest/NavBarGuest.ascx");
                     if (user.Role.ToString() == nameof(UserRole.Administrator))
-                    {
                         // Usuario Administrator
                         _navControl = LoadControl("~/Components/NavBar/Admin/NavBarAdmin.ascx");
-                    }
                     else if (user.Role.ToString() == nameof(UserRole.Standard))
-                    {
                         // Usuario teacher
                         _navControl = LoadControl("~/Components/NavBar/Teacher/NavBarTeacher.ascx");
-                    }
                 }
             }
             catch (Exception e)
@@ -66,8 +62,11 @@ namespace SistemsProyect
                     PlaceHolderNavbar.Controls.Clear(); // Limpiar el PlaceHolder antes de agregar el nuevo control
 
                     PlaceHolderNavbar.Controls.Add(_navControl);
-                }else
+                }
+                else
+                {
                     Console.WriteLine("Failed to load navigation control.");
+                }
             }
         }
     }

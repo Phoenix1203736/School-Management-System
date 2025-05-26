@@ -1,19 +1,23 @@
-﻿using SistemsProyect.Model.Classes;
+﻿using System;
+using System.Diagnostics;
+using System.Web.UI;
+using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
 using SistemsProyect.Model.Enums;
-using System;
-using System.Diagnostics;
 
 // ReSharper disable UnusedMember.Local
 
-namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views {
-    public partial class AddStudent : System.Web.UI.UserControl {
-        protected void Page_Load (object sender, EventArgs e)
+namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views
+{
+    public partial class AddStudent : UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
         {
         }
 
-      
-        private void ClearForm () {
+
+        private void ClearForm()
+        {
             txtFirstName.Text = string.Empty;
             txtLastName.Text = string.Empty;
             txtBirthDate.Text = string.Empty;
@@ -23,17 +27,17 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
             ddlStatus.SelectedValue = "active";
         }
 
-        protected void btnCancel_Click (object sender, EventArgs e) {
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
             var page = (AdminViewStudents)Page;
             page.CancelButton();
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-           
             Debug.WriteLine("btnSave_Click triggered");
             // Verificar primero la validación del estado
-            if(ddlStatus.SelectedValue == "Select")
+            if (ddlStatus.SelectedValue == "Select")
             {
                 lblError.Text = "Debe seleccionar un estado válido para el alumno";
                 lblError.CssClass = "text-danger";
@@ -43,7 +47,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
             try
             {
-                Student student = new Student();
+                var student = new Student();
                 student.FirstName = txtFirstName.Text.Trim();
                 student.LastName = txtLastName.Text.Trim();
                 student.BirthDate = DateTime.Parse(txtBirthDate.Text);
@@ -51,10 +55,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                 student.Phone = txtPhone.Text.Trim();
                 student.DateEntry = DateTime.Parse(txtEntryDate.Text);
                 student.Status = (StudentStatus)Enum.Parse(typeof(StudentStatus), ddlStatus.SelectedValue);
-        
-               int? result = StudentOperations.AddStudentToStudents(student);
 
-                if(result > 0)
+                var result = StudentOperations.AddStudent(student);
+
+                if (result > 0)
                 {
                     lblError.Text = "Alumno guardado exitosamente";
                     lblError.CssClass = "text-success";
@@ -65,9 +69,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                     lblError.Text = "Error al guardar.Recuerda que el email y teléfono sean únicos.";
                     lblError.CssClass = "text-danger";
                 }
+
                 lblError.Visible = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblError.Text = $"Error: {ex.Message}";
                 lblError.CssClass = "text-danger";

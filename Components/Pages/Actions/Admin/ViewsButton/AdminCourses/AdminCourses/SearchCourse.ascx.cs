@@ -9,7 +9,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
     public partial class SearchCourse : UserControl
     {
-       protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
@@ -22,24 +22,25 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
         {
             ddlTeachers.Items.Clear();
             var profesores = TeacherOperations.GetAll();
-            foreach (Model.Classes.Teacher profe in profesores)
-            {
-                ddlTeachers.Items.Add(new ListItem(profe.FirstName, profe.Id.ToString()));
-            }
+            foreach (var profe in profesores) ddlTeachers.Items.Add(new ListItem(profe.FirstName, profe.Id.ToString()));
         }
 
         private void CargarMaterias(bool activas)
         {
             ddlSubjects.Items.Clear();
             var materias = SubjectOperations.GetAll().Where(m => m.Active == activas).ToList();
-            foreach (var materia in materias)
-            {
-                ddlSubjects.Items.Add(new ListItem(materia.Name, materia.Id.ToString()));
-            }
+            foreach (var materia in materias) ddlSubjects.Items.Add(new ListItem(materia.Name, materia.Id.ToString()));
         }
 
-        private void CargarMateriasActivas() => CargarMaterias(true);
-        private void CargarMateriasInactivas() => CargarMaterias(false);
+        private void CargarMateriasActivas()
+        {
+            CargarMaterias(true);
+        }
+
+        private void CargarMateriasInactivas()
+        {
+            CargarMaterias(false);
+        }
 
         protected void btnFiltrarActivas_Click(object sender, EventArgs e)
         {
@@ -53,10 +54,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         protected void btnCargarMateria_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlSubjects.SelectedValue, out int id))
+            if (int.TryParse(ddlSubjects.SelectedValue, out var id))
             {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                Subject materia = SubjectOperations.GetById(id);
+                var materia = SubjectOperations.GetById(id);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                 if (materia != null)
                 {
@@ -73,8 +74,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            int? id = int.TryParse(txtId.Text, out int parsedId) ? parsedId : (int?)null;
-            int? idTeacher = int.TryParse(ddlTeachers.SelectedValue, out int parsedTeacher) ? parsedTeacher : (int?)null;
+            var id = int.TryParse(txtId.Text, out var parsedId) ? parsedId : (int?)null;
+            var idTeacher = int.TryParse(ddlTeachers.SelectedValue, out var parsedTeacher) ? parsedTeacher : (int?)null;
 
             // ReSharper disable once UnusedVariable
             var materia = new Subject

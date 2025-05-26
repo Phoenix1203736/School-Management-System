@@ -2,9 +2,8 @@
 {
     public enum StudentStatus
     {
-        Active=1,
-        Inactive=2,
-        Graduate=3
-        
+        Active = 1,
+        Inactive = 2,
+        Graduate = 3
     }
 }

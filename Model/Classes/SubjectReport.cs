@@ -20,5 +20,4 @@
             public decimal CombinedAverage => (AssignmentAverage + AttendanceAverage) / 2;
         }
     }
-
 }

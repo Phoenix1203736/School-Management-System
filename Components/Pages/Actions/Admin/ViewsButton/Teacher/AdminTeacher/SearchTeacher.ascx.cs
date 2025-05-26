@@ -20,7 +20,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
         {
             try
             {
-                string searchTerm = txtSearchTerm.Text.Trim();
+                var searchTerm = txtSearchTerm.Text.Trim();
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
@@ -32,13 +32,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
                 Model.Classes.Teacher? teacher = null;
 
                 if (rbSearchByPhone.Checked)
-                {
                     teacher = TeacherOperations.GetProfessorByPhone(searchTerm);
-                }
-                else if (rbSearchByEmail.Checked)
-                {
-                    teacher = TeacherOperations.GetProfessorByEmail(searchTerm);
-                }
+                else if (rbSearchByEmail.Checked) teacher = TeacherOperations.GetProfessorByEmail(searchTerm);
 
                 if (teacher != null)
                 {
@@ -92,19 +87,15 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
                 };
 
                 // Actualizar en tabla professor
-                int? result1 = TeacherOperations.UpdateTeacher(teacher);
-                string oldEmail = teacher.Email;
+                var result1 = TeacherOperations.UpdateTeacher(teacher);
+                var oldEmail = teacher.Email;
                 // Actualizar en tabla users
-                int? result2 = TeacherOperations.UpdateTeacherInUsers(teacher, oldEmail);
+                var result2 = TeacherOperations.UpdateTeacherInUsers(teacher, oldEmail);
 
                 if (result1 > 0 && result2 > 0)
-                {
                     ShowMessage("Profesor actualizado correctamente", "text-success");
-                }
                 else
-                {
                     ShowMessage("Error al actualizar el profesor", "text-danger");
-                }
             }
             catch (Exception ex)
             {
@@ -125,13 +116,9 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
             txtSpecialization.Text = teacher.Specialization ?? "";
             // ReSharper disable once AssignNullToNotNullAttribute
             if (!string.IsNullOrEmpty(teacher.Status) && ddlStatus.Items.FindByValue(teacher.Status) != null)
-            {
                 ddlStatus.SelectedValue = teacher.Status;
-            }
             else
-            {
                 ddlStatus.SelectedIndex = 0;
-            }
         }
 
         private void ClearTeacherData()
@@ -168,8 +155,23 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            var page = (AdminViews)this.Page;
+            var page = (AdminViews)Page;
             page.CancelButtons();
+        }
+
+        protected void btnEliminar_click(object sender, EventArgs e)
+        {
+            var email = txtEmail.Text;
+            var result = TeacherOperations.RemoveTeacherUsers(email);
+
+            if (result > 0)
+            {
+                ShowMessage("Profesor eliminado correctamente  ya no es capaz e iniciar sesion", "text-success");
+            }
+            else
+            {
+                ShowMessage("Error al eliminar el profesor", "text-danger");
+            }
         }
     }
 }

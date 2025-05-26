@@ -130,6 +130,9 @@
                     <asp:Button ID="btnCancel" runat="server" Text="Cancelar" 
                         CssClass="btn btn-secondary px-4 ms-2" 
                         OnClick="btnCancel_Click" CausesValidation="false" />
+                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar de usuarios" 
+                                CssClass="btn btn-danger px-4 ms-2" 
+                                OnClick="btnEliminar_click"  />
                 </div>
             </div>
         </div>

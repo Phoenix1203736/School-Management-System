@@ -9,10 +9,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Grades
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                LoadSubjects();
-            }
+            if (!IsPostBack) LoadSubjects();
         }
 
         private void LoadSubjects()
@@ -29,7 +26,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Grades
 
         protected void ddlSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId))
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId))
             {
                 var grades = StudentSubjectOperations.GetFinalGradesBySubject(subjectId);
                 gvFinalGrades.DataSource = grades;
@@ -39,21 +36,19 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Grades
 
         protected void btnSaveFinalGrades_Click(object sender, EventArgs e)
         {
-            int subjectId = int.Parse(ddlSubjects.SelectedValue);
-            int updated = 0;
+            var subjectId = int.Parse(ddlSubjects.SelectedValue);
+            var updated = 0;
             try
             {
                 foreach (GridViewRow row in gvFinalGrades.Rows)
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    int studentId = Convert.ToInt32(gvFinalGrades.DataKeys[row.RowIndex].Value);
+                    var studentId = Convert.ToInt32(gvFinalGrades.DataKeys[row.RowIndex].Value);
                     var txtFinalGrade = row.FindControl("txtFinalGrade") as TextBox;
 
-                    if (txtFinalGrade != null && int.TryParse(txtFinalGrade.Text, out int grade))
-                    {
+                    if (txtFinalGrade != null && int.TryParse(txtFinalGrade.Text, out var grade))
                         if (StudentSubjectOperations.UpdateFinalGrade(subjectId, studentId, grade))
                             updated++;
-                    }
                 }
             }
             catch (Exception)

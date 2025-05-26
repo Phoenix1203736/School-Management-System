@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace SistemsProyect.Model.Classes {
-    public class Teacher {
+namespace SistemsProyect.Model.Classes
+{
+    public class Teacher
+    {
         public int Id { get; set; }
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public string? FirstName { get; set; }

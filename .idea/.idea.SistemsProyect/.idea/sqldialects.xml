@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/AssigmentOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/AttendanceOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/ReportOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/StudentOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/StudentSubjectOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/SubjectOperations.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/TeacherOperations.cs" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/Model/DataBase/Controllers/UserOperations.cs" dialect="GenericSQL" />
-    <file url="PROJECT" dialect="MariaDB" />
+    <file url="PROJECT" dialect="TSQL" />
   </component>
 </project>

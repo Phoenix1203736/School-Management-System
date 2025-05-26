@@ -12,7 +12,5 @@ namespace SistemsProyect.Model.Classes
         public bool? Active { get; set; }
         public string? Description { get; set; }
         public DateTime? Date { get; set; }
-
-        
     }
 }

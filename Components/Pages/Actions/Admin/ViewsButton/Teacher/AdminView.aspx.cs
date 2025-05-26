@@ -13,8 +13,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         }
 
         /// <summary>
-        /// Reloads the active control based on the current ViewState.
-        /// This method checks the ViewState for an active control and loads the corresponding view.
+        ///     Reloads the active control based on the current ViewState.
+        ///     This method checks the ViewState for an active control and loads the corresponding view.
         /// </summary>
         private void ReloadActiveControl()
         {
@@ -23,7 +23,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
                 return;
 
             // Retrieve the active control identifier
-            string active = ViewState["ActiveControl"].ToString();
+            var active = ViewState["ActiveControl"].ToString();
 
             // Determine which view to load based on the active control
             switch (active)
@@ -34,7 +34,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
                 case "SearchTeacher":
                     LoadSearchTeacherView(); // Load the view for searching a teacher
                     break;
-                case "ChangeStatusTeacher": 
+                case "ChangeStatusTeacher":
                     ChangeStatusTeacher(); // Load the view for changing teacher status
                     break;
                 case "AddTeacher":
@@ -56,7 +56,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         public void CancelButtons()
         {
             placeHolderAdminView.Controls.Clear();
-            
+
             placeHolderAdminView.Visible = false;
             ViewState["ActiveControl"] = "";
         }

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Web.UI;
 using SistemsProyect.Model.DataBase.Controllers;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views
 {
-    public partial class ChangeStatusStudent : System.Web.UI.UserControl
+    public partial class ChangeStatusStudent : UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,15 +22,14 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
             var helper = txtStudentId.Text;
             try
             {
-               int id= Convert.ToInt32(helper);
+                var id = Convert.ToInt32(helper);
                 var status = ddlStatus.SelectedValue;
-                int? result = StudentOperations.ChangeStatus(id,status.ToLower());
+                var result = StudentOperations.ChangeStatus(id, status.ToLower());
 
                 if (result > 0)
                 {
                     lblMessage.Text = "Actualizado correctamente";
                     lblMessage.CssClass = "text-success";
-                    
                 }
                 else
                 {
@@ -40,7 +40,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
             {
                 lblMessage.Text = "Error: " + "Recuerde que el id es un numero";
                 lblMessage.CssClass = "text-danger";
-                return;
             }
         }
     }

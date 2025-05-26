@@ -1,71 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|c:\\users\\pacot\\source\\repos\\sistemsproyect\\components\\pages\\actions\\admin\\viewsbutton\\adminstudent\\adminviewstudents.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|solutionrelative:components\\pages\\actions\\admin\\viewsbutton\\adminstudent\\adminviewstudents.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|c:\\users\\pacot\\source\\repos\\sistemsproyect\\components\\pages\\actions\\admin\\viewsbutton\\adminstudent\\views\\addstudent.ascx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|solutionrelative:components\\pages\\actions\\admin\\viewsbutton\\adminstudent\\views\\addstudent.ascx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|c:\\users\\pacot\\source\\repos\\sistemsproyect\\model\\classes\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8DF87C48-EA84-4277-8931-3E8C84533F2B}|SistemsProyect.csproj|solutionrelative:model\\classes\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\pacot\\RiderProjects\\Sistems_Proyect\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AdminViewStudents.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\AdminViewStudents.aspx.cs",
-              "RelativeDocumentMoniker": "Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\AdminViewStudents.aspx.cs",
-              "ToolTip": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\AdminViewStudents.aspx.cs",
-              "RelativeToolTip": "Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\AdminViewStudents.aspx.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T03:56:07.902Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AddStudent.ascx.cs",
-              "DocumentMoniker": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\Views\\AddStudent.ascx.cs",
-              "RelativeDocumentMoniker": "Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\Views\\AddStudent.ascx.cs",
-              "ToolTip": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\Views\\AddStudent.ascx.cs",
-              "RelativeToolTip": "Components\\Pages\\Actions\\Admin\\ViewsButton\\AdminStudent\\Views\\AddStudent.ascx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAACKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T03:54:17.983Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Teacher.cs",
-              "DocumentMoniker": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Model\\Classes\\Teacher.cs",
-              "RelativeDocumentMoniker": "Model\\Classes\\Teacher.cs",
-              "ToolTip": "C:\\Users\\pacot\\source\\repos\\SistemsProyect\\Model\\Classes\\Teacher.cs",
-              "RelativeToolTip": "Model\\Classes\\Teacher.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T05:58:57.441Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

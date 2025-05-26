@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Web;
-using MySqlConnector;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.Enums;
 
@@ -10,46 +10,37 @@ namespace SistemsProyect.Model.DataBase.Controllers
     {
         private static string? _instruction;
 
-        internal static void GetUser(string email, string password)
+        internal static User? GetUser(string email, string password)
         {
-            _instruction = @"SELECT name, email, role, active FROM users WHERE email = @email AND `password` = @password;";
-            
+            const string query = @"
+        SELECT id, name, email, phone, role, active
+        FROM users
+        WHERE email = @email AND password = @password";
+
             using var connection = SingletonSafe.CreateConnection();
-            if (connection == null || connection.State != System.Data.ConnectionState.Open)
-                return;
+            if (connection == null) return null;
 
-            using (MySqlCommand sqlCommand = new MySqlCommand(_instruction, connection))
+            using var command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@password", password); // Solo si no estás usando hashing
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                sqlCommand.Parameters.AddWithValue("@email", email);
-                sqlCommand.Parameters.AddWithValue("@password", password);
-
-                using (MySqlDataReader reader = sqlCommand.ExecuteReader())
+                var user = new User
                 {
-                    if (reader.Read())
-                    {
-                        User user = new User();
+                    Id = reader.GetInt32(reader.GetOrdinal("id")),
+                    FirstName = reader["name"] as string,
+                    Email = reader["email"] as string,
+                    Phone = reader["phone"] as string,
+                    Role = Enum.TryParse<UserRole>(reader["role"]?.ToString(), out var role) ? role : UserRole.Guest,
+                    Active = reader["active"] is int active && active == 1
+                };
 
-                        user.FirstName = reader.IsDBNull(reader.GetOrdinal("name"))
-                            ? string.Empty
-                            : reader.GetString("name");
-
-                        user.Email = reader.IsDBNull(reader.GetOrdinal("email"))
-                            ? string.Empty
-                            : reader.GetString("email");
-
-                        string roleStr = reader.IsDBNull(reader.GetOrdinal("role"))
-                            ? "Guest"
-                            : reader.GetString("role");
-
-                        user.Role = Enum.TryParse(roleStr, out UserRole role) ? role : UserRole.Guest;
-
-                        int activeCol = reader.GetOrdinal("active");
-                        user.Active = !reader.IsDBNull(activeCol) && reader.GetInt32(activeCol) == 1;
-
-                        HttpContext.Current.Session["user"] = user;
-                    }
-                }
+                HttpContext.Current.Session["user"] = user;
             }
+
+            return null;
         }
     }
 }

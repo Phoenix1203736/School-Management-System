@@ -1,38 +1,29 @@
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
-using MySqlConnector;
 
 namespace SistemsProyect.Model.DataBase
 {
     public static class SingletonSafe
     {
-        private static readonly string ConnectionString = new MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "root",
-            Password = "",
-            Database = "school",
-            Port = 3306,
-            MinimumPoolSize = 0,
-            MaximumPoolSize = 100,
-            // Opcional: puedes ajustar el pool si lo necesitas
-            // MinimumPoolSize = 0,
-            // MaximumPoolSize = 100
-        }.ConnectionString;
+        // Cadena de conexión configurada usando SqlConnectionStringBuilder
+        private static string _cadcon;
 
-        public static MySqlConnection? CreateConnection()
+        public static SqlConnection? CreateConnection()
         {
-            MySqlConnection? connection=null;
+            // _cadcon = @"Server=PHOENIX-DESKTOP\SQLEXPRESS;Database=school;Trusted_Connection=True;";
+            _cadcon=@"workstation id=school_2.mssql.somee.com;packet size=4096;user id=Phoenixcc_SQLLogin_1;pwd=nv6rwejqoo;data source=school_2.mssql.somee.com;persist security info=False;initial catalog=school_2;TrustServerCertificate=True";
+            SqlConnection? connection = null;
             try
             {
-                 connection = new MySqlConnection(ConnectionString);
-                connection.Open(); // Abre la conexión inmediatamente (puede lanzar excepción si hay error)
-              
+                connection = new SqlConnection(_cadcon);
+                connection.Open(); // Abre la conexión inmediatamente
             }
             catch (Exception e)
             {
-Debug.WriteLine(e.Message);
+                Debug.WriteLine($"Error al conectar con SQL Server: {e.Message}");
             }
+
             return connection;
         }
     }

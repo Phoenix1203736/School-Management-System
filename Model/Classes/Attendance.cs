@@ -16,9 +16,8 @@ namespace SistemsProyect.Model.Classes
         [Display(Description = "id del estudiante")]
         public int? IdStudent { get; set; }
 
-       
-        [Display(Description = "Asistencia")]
-        public AttendanceStatus? Attenndace { get; set; }
+
+        [Display(Description = "Asistencia")] public AttendanceStatus? Attenndace { get; set; }
 
         [Display(Description = "Fecha de asistencia")]
         public DateTime? Date { get; set; }

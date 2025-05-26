@@ -1,28 +1,27 @@
-﻿﻿using System;
- using System.Diagnostics;
- using System.Web;
+﻿using System;
+using System.Diagnostics;
+using System.Web;
+using System.Web.UI;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
 using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views
 {
-    public partial class SearchStudent : System.Web.UI.UserControl
+    public partial class SearchStudent : UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
                 // Inicializar controles si es necesario
                 rbSearchByPhone.Checked = true;
-            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             try
             {
-                string searchTerm = txtSearchTerm.Text.Trim();
+                var searchTerm = txtSearchTerm.Text.Trim();
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
@@ -34,25 +33,21 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
                 int? result = null;
                 if (rbSearchByPhone.Checked)
-                {
                     // Buscar por teléfono
                     result = StudentOperations.GetStudentByPhone(searchTerm);
-                }
                 else if (rbSearchByEmail.Checked)
-                {
                     // Buscar por email
                     result = StudentOperations.GetStudentByEmail(searchTerm);
-                }
 
                 if (result > 0)
                 {
                     // User user = (User)HttpContext.Current.Session["user"];
-                    Student student = (Student)HttpContext.Current.Session["student"];
+                    var student = (Student)HttpContext.Current.Session["student"];
                     // Mostrar datos del estudiante encontrado
                     DisplayStudentData(student);
                     // ShowMessage("Estudiante encontrado", "text-success");
                     pnlEditStudent.Visible = true;
-                    var page = (AdminViewStudents)this.Page;
+                    var page = (AdminViewStudents)Page;
                     page.SearchStudentView();
                 }
                 else
@@ -76,10 +71,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
             try
             {
                 if (!ValidateStudentData())
-                {
                     // ShowMessage("Complete todos los campos requeridos", "text-danger");
                     return;
-                }
 
                 var student = new Student
                 {
@@ -92,8 +85,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                     DateEntry = DateTime.Parse(txtDateEntry.Text),
                     Status = (StudentStatus)Enum.Parse(typeof(StudentStatus), ddlStatus.SelectedValue)
                 };
-                string email = txtEmail.Text.Trim();
-                int? success = StudentOperations.UpdateStudent(student, email);
+                var email = txtEmail.Text.Trim();
+                var success = StudentOperations.UpdateStudent(student, email);
 
                 if (success > 0)
                 {
@@ -165,7 +158,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewStudents)this.Page;
+            var page = (AdminViewStudents)Page;
             page.CancelButton();
         }
     }

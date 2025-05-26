@@ -9,13 +9,13 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           LoadAssignments();
+            LoadAssignments();
         }
 
         private void LoadAssignments()
         {
             ddlAssignments.Items.Clear();
-            var assignments = AssigmentOperations.GetAssignmentsByProfessor();
+            var assignments = AssignmentOperations.GetAssignmentsByProfessor();
             ddlAssignments.DataSource = assignments;
             ddlAssignments.DataTextField = "Description";
             ddlAssignments.DataValueField = "Id";
@@ -24,9 +24,9 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
 
         protected void ddlAssignments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlAssignments.SelectedValue, out int assignmentId))
+            if (int.TryParse(ddlAssignments.SelectedValue, out var assignmentId))
             {
-                var grades =AssigmentOperations.GetStudentsForAssignment(assignmentId);
+                var grades = AssignmentOperations.GetStudentsForAssignment(assignmentId);
                 gvGrades.DataSource = grades;
                 gvGrades.DataBind();
             }
@@ -34,17 +34,15 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
 
         protected void btnSaveGrades_Click(object sender, EventArgs e)
         {
-            int updated = 0;
+            var updated = 0;
             foreach (GridViewRow row in gvGrades.Rows)
             {
                 // ReSharper disable once PossibleNullReferenceException
-                int assignmentId = Convert.ToInt32(gvGrades.DataKeys[row.RowIndex].Value);
+                var assignmentId = Convert.ToInt32(gvGrades.DataKeys[row.RowIndex].Value);
                 var txtGrade = row.FindControl("txtGrade") as TextBox;
-                if (txtGrade != null && int.TryParse(txtGrade.Text, out int grade))
-                {
-                    if (AssigmentOperations.UpdateGrade(assignmentId, grade))
+                if (txtGrade != null && int.TryParse(txtGrade.Text, out var grade))
+                    if (AssignmentOperations.UpdateGrade(assignmentId, grade))
                         updated++;
-                }
             }
 
             lblMessage.Text = $"Se actualizaron {updated} calificaciones.";
@@ -52,7 +50,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment.Views
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            var page = (Assigment)this.Page;
+            var page = (Assigment)Page;
             page.HiddeAll();
         }
     }

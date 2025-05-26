@@ -1,0 +1,18 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+    CodeBehind="AdminViewCourses.aspx.cs" Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses.AdminViewCourses" %>
+<%@Register tagPrefix="uc" tagName="AddCourse" src="~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminCourses/AddCourses.ascx"%>
+<%@ Register tagName="AddCourseStudent" tagPrefix="uc" src="~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminCourses/AddCourseStudent.ascx"%>
+<%@Register tagName="SearchCource" tagPrefix="uc" src="~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminCourses/SearchCourse.ascx" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <link rel="stylesheet" href="StylesCoursesView.css" type="text/css" />
+    <div class="parent">
+        <div class="div1">
+            <asp:PlaceHolder ID="placeHolderAdminButtons" runat="server"></asp:PlaceHolder>
+        </div>
+        <div class="div2">
+            <uc:AddCourse ID="AddCourses" Visible="False" ViewStateMode="Enabled" runat="server"/>
+            <uc:AddCourseStudent runat="server" ID="AddStudentCourseV" Visible="false" ViewStateMode="Enabled"/>
+            <uc:SearchCource runat="server" ID="SearchCourse" Visible="false" ViewStateMode="Enabled"/>
+        </div>
+    </div>
+</asp:Content>

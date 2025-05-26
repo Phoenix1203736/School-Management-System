@@ -11,24 +11,23 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 
         protected void btnBuscarCurso_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewCourses)this.Page;
+            var page = (AdminViewCourses)Page;
             page.SearchCourseView();
         }
 
         protected void btnEliminarCurso_Click(object sender, EventArgs e)
         {
-         
         }
 
         protected void btnAgregarCurso_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewCourses)this.Page;
+            var page = (AdminViewCourses)Page;
             page.AddCourseView();
         }
 
         protected void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            var page = (AdminViewCourses)this.Page;
+            var page = (AdminViewCourses)Page;
             page.AddStudentsCourse();
         }
     }

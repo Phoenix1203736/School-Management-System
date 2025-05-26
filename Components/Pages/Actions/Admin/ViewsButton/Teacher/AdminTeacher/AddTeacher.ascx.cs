@@ -22,7 +22,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
         /// <param name="e"></param>
         protected void CancleButton_Click(object sender, EventArgs e)
         {
-            var page = (AdminViews)this.Page;
+            var page = (AdminViews)Page;
             page.CancelButtons();
         }
 
@@ -37,7 +37,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
             int? r1 = null;
             try
             {
-                Model.Classes.Teacher teacher = new Model.Classes.Teacher();
+                var teacher = new Model.Classes.Teacher();
                 teacher.FirstName = textBoxFirstName.Text;
                 teacher.LastName = textBoxLastName.Text;
                 teacher.Email = TextBoxEmail.Text;
@@ -62,10 +62,10 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
             }
             else
             {
-                MessageAuth.Text = "Error agregando al profesor recuerda que el correo y el numero de telefono son unicos"; 
+                MessageAuth.Text =
+                    "Error agregando al profesor recuerda que el correo y el numero de telefono son unicos";
                 MessageAuth.CssClass = "text-danger";
                 MessageAuth.Visible = true;
-                
             }
         }
 

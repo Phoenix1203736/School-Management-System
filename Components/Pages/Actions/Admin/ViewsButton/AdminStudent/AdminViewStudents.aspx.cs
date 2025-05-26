@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Web.UI;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
 {
-    public partial class AdminViewStudents : System.Web.UI.Page
+    public partial class AdminViewStudents : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

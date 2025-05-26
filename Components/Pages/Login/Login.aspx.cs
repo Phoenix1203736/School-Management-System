@@ -13,7 +13,6 @@ namespace SistemsProyect.Components.Pages.Login
 
         protected void btnlogin_click(object sender, EventArgs e)
         {
-           
             if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
                 lblMensaje.Text = "Usuario o contraseña incorrectos";

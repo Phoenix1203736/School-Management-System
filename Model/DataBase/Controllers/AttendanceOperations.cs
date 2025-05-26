@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
-using MySqlConnector;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.Enums;
 
@@ -8,7 +9,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 {
     public static class AttendanceOperations
     {
-        public static bool UpsertAttendance(Attendance? attendance)
+        public static bool UpsertAttendance(Attendance attendance)
         {
             if (attendance == null)
                 return false;
@@ -16,82 +17,87 @@ namespace SistemsProyect.Model.DataBase.Controllers
             var dateOnly = attendance.Date?.Date ?? DateTime.Today;
 
             const string query = @"
-    INSERT INTO school.attendances (id_subject, id_student, attendances, date)
-    VALUES (@id_subject, @id_student, @status, @date);
-";
-
+                INSERT INTO attendances
+                    (id_subject, id_student, attendances, date)
+                VALUES
+                    (@SubjectId, @StudentId, @Status, @Date);";
 
             try
             {
                 using var connection = SingletonSafe.CreateConnection();
-                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                if (connection == null || connection.State != ConnectionState.Open)
                     return false;
 
-                using var command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_subject", attendance.IdSubject);
-                command.Parameters.AddWithValue("@id_student", attendance.IdStudent);
-                command.Parameters.AddWithValue("@status",
-                    attendance.Attenndace?.ToString() ?? "Absent"); // Valor por defecto si es null
-                command.Parameters.AddWithValue("@date", dateOnly);
+                using var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@SubjectId", attendance.IdSubject);
+                command.Parameters.AddWithValue("@StudentId", attendance.IdStudent);
+                command.Parameters.AddWithValue("@Status", attendance.Attenndace.ToString());
+                command.Parameters.AddWithValue("@Date", dateOnly);
+
                 return command.ExecuteNonQuery() > 0;
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                Debug.WriteLine($"MySQL Error in UpsertAttendance: {ex.Message}");
+                Debug.WriteLine($"SQL Error in UpsertAttendance: {ex.Message}");
                 return false;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"General Error in UpsertAttendance: {ex.Message}");
+                Debug.WriteLine($"Error in UpsertAttendance: {ex.Message}");
                 return false;
             }
         }
 
-        public static Attendance? GetAttendanceByStudentAndDate(int subjectId, int studentId, DateTime date)
+        public static Attendance GetAttendanceByStudentAndDate(int subjectId, int studentId, DateTime date)
         {
             const string query = @"
-        SELECT id, id_subject, id_student, attendances, date
-        FROM school.attendances
-        WHERE id_subject = @id_subject
-          AND id_student = @id_student
-          AND date = @date
-        LIMIT 1;
-    ";
+                SELECT TOP 1
+                    id,
+                    id_subject,
+                    id_student,
+                    attendances,
+                    date
+                FROM attendances
+                WHERE id_subject = @SubjectId
+                  AND id_student = @StudentId
+                  AND date = @Date;";
 
             try
             {
                 using var connection = SingletonSafe.CreateConnection();
-                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                if (connection == null || connection.State != ConnectionState.Open)
                     return null;
 
-                using var command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_subject", subjectId);
-                command.Parameters.AddWithValue("@id_student", studentId);
-                command.Parameters.AddWithValue("@date", date.Date);
+                using var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@SubjectId", subjectId);
+                command.Parameters.AddWithValue("@StudentId", studentId);
+                command.Parameters.AddWithValue("@Date", date.Date);
 
                 using var reader = command.ExecuteReader();
                 if (reader.Read())
-                {
                     return new Attendance
                     {
-                        Id = reader.GetInt32("id"),
-                        IdSubject = reader.GetInt32("id_subject"),
-                        IdStudent = reader.GetInt32("id_student"),
-                        // Aquí convertimos el enum string a enum en C#
-                        Attenndace = Enum.TryParse<AttendanceStatus>(reader.GetString("attendances"), out var status)
+                        Id = reader.GetInt32(reader.GetOrdinal("id")),
+                        IdSubject = reader.GetInt32(reader.GetOrdinal("id_subject")),
+                        IdStudent = reader.GetInt32(reader.GetOrdinal("id_student")),
+                        Attenndace = Enum.TryParse(
+                            reader.GetString(reader.GetOrdinal("attendances")),
+                            out AttendanceStatus status)
                             ? status
                             : AttendanceStatus.Absent,
-                        Date = reader.GetDateTime("date")
+                        Date = reader.GetDateTime(reader.GetOrdinal("date"))
                     };
-                }
-                else
-                {
-                    return null; // No existe registro para esa fecha
-                }
+
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                Debug.WriteLine($"SQL Error in GetAttendanceByStudentAndDate: {ex.Message}");
+                return null;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error en GetAttendanceByStudentAndDate: {ex.Message}");
+                Debug.WriteLine($"Error in GetAttendanceByStudentAndDate: {ex.Message}");
                 return null;
             }
         }

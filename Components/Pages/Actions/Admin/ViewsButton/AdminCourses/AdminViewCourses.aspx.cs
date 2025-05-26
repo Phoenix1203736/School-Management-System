@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Web.UI;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
-    public partial class AdminViewCourses : System.Web.UI.Page
+    public partial class AdminViewCourses : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadButtons();
-            
         }
 
         private void LoadButtons()
@@ -30,7 +30,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
                     AddCourseView();
                     break;
                 /*case "DeleteCourse":
-                    
+
                     break;#1#
                 case "AddCourseStudent":
                     AddStudentsCourse() ;

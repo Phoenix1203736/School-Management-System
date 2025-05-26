@@ -33,7 +33,8 @@ namespace SistemsProyect.Components.NavBar.Admin
                 if (Session["Courses"] != null) Session.Remove("Courses");
                 if (Session["Reports"] != null) Session.Remove("Reports");
                 Session["Students"] = true;
-                Response.Redirect(ResolveUrl("~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/AdminViewStudents.aspx"));
+                Response.Redirect(
+                    ResolveUrl("~/Components/Pages/Actions/Admin/ViewsButton/AdminStudent/AdminViewStudents.aspx"));
             }
 
             if (dropdownManageOptions.SelectedItem.Text == "Administrar Profesores")
@@ -52,8 +53,10 @@ namespace SistemsProyect.Components.NavBar.Admin
                 if (Session["Reports"] != null) Session.Remove("Reports");
 
                 Session["Courses"] = true;
-                Response.Redirect(ResolveUrl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminViewCourses.aspx"));
+                Response.Redirect(
+                    ResolveUrl("~/Components/Pages/Actions/Admin/ViewsButton/AdminCourses/AdminViewCourses.aspx"));
             }
+
 // here need ti invent all
             if (dropdownManageOptions.SelectedItem.Text == "Reportes")
             {

@@ -4,16 +4,16 @@
     {
         public int? StudentId { get; set; }
         public string? StudentName { get; set; }
-        public decimal? AssigementPercent { get; set; }
+        public decimal? AssignmentPercent { get; set; }
         public decimal? AttendancePercentage { get; set; }
-        public int? FinalGrade { get; set; }
+        public decimal? FinalGrade { get; set; }
 
         public decimal? AverageGrade
         {
             get
             {
-                if (AssigementPercent.HasValue && AttendancePercentage.HasValue)
-                    return (AssigementPercent.Value + AttendancePercentage.Value) / 2;
+                if (AssignmentPercent.HasValue && AttendancePercentage.HasValue)
+                    return (AssignmentPercent.Value + AttendancePercentage.Value) / 2;
                 return null;
             }
         }

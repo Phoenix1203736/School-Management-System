@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
@@ -8,14 +9,11 @@ using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Assistance
 {
-    public partial class AssistantView : System.Web.UI.Page
+    public partial class AssistantView : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                LoadSubjects();
-            }
+            if (!IsPostBack) LoadSubjects();
         }
 
         private void LoadSubjects()
@@ -33,7 +31,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Assistance
 
         protected void ddlSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId) && subjectId > 0)
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId) && subjectId > 0)
             {
                 LoadAttendance(subjectId, DateTime.Today);
             }
@@ -82,11 +80,11 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Assistance
 
         protected void gvAttendance_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            int studentId = (int)(gvAttendance.DataKeys[e.RowIndex]?.Value ?? throw new InvalidOperationException());
-            int subjectId = int.Parse(ddlSubjects.SelectedValue);
+            var studentId = (int)(gvAttendance.DataKeys[e.RowIndex]?.Value ?? throw new InvalidOperationException());
+            var subjectId = int.Parse(ddlSubjects.SelectedValue);
 
-            GridViewRow row = gvAttendance.Rows[e.RowIndex];
-            DropDownList ddlStatus = (DropDownList)row.FindControl("ddlStatus");
+            var row = gvAttendance.Rows[e.RowIndex];
+            var ddlStatus = (DropDownList)row.FindControl("ddlStatus");
 
             if (Enum.TryParse(ddlStatus.SelectedValue, out AttendanceStatus status))
             {
@@ -119,29 +117,25 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Assistance
         protected void gvAttendance_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvAttendance.EditIndex = e.NewEditIndex;
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId))
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId))
                 LoadAttendance(subjectId, DateTime.Today);
         }
 
         protected void gvAttendance_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvAttendance.EditIndex = -1;
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId))
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId))
                 LoadAttendance(subjectId, DateTime.Today);
         }
 
         protected void btnLoadAttendance_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(ddlSubjects.SelectedValue, out int subjectId) && subjectId > 0)
+            if (int.TryParse(ddlSubjects.SelectedValue, out var subjectId) && subjectId > 0)
             {
-                if (DateTime.TryParse(txtAttendanceDate.Text, out DateTime selectedDate))
-                {
+                if (DateTime.TryParse(txtAttendanceDate.Text, out var selectedDate))
                     LoadAttendance(subjectId, selectedDate);
-                }
                 else
-                {
                     LoadAttendance(subjectId, DateTime.Today);
-                }
             }
             else
             {
