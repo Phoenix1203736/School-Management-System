@@ -34,7 +34,7 @@ namespace SistemsProyect.Model.DataBase
                 mySqlConnectionStringBuilder.UserID = "root";
                 mySqlConnectionStringBuilder.Password = "";
                 mySqlConnectionStringBuilder.Database = "school";
-                mySqlConnectionStringBuilder.Port = 3306;
+                mySqlConnectionStringBuilder.Port = 3307;
                 _getInstance.ConnectionString = mySqlConnectionStringBuilder.ConnectionString;
                 if (_getInstance.State == System.Data.ConnectionState.Closed)
                 {
