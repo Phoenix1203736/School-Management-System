@@ -21,7 +21,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using MySqlCommand command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
@@ -64,7 +64,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using MySqlCommand command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@name", teacher.FirstName+" "+teacher.LastName);
@@ -92,7 +92,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@email", email);
@@ -139,7 +139,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 string checkQuery = "SELECT COUNT(*) FROM school.users WHERE email = @oldEmail";
                 using var checkCmd = new MySqlCommand(checkQuery, connection);
@@ -202,7 +202,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
@@ -231,7 +231,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@phone", phone);
@@ -273,7 +273,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 using var cmd = new MySqlCommand(query, connection);
                 using var reader = cmd.ExecuteReader();
@@ -305,7 +305,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             const string query = @"Select school.professor.id from school.professor where email=@Email";
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -343,7 +343,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return list;
 
@@ -384,7 +384,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             int? result = null;
             try
             {
-                using (MySqlConnection connection = SingletonSafe.CreateConnection())
+                using (MySqlConnection connection = ConnectionPooling.CreateConnection())
                 {
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {

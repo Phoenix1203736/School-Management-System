@@ -33,7 +33,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             ";
 
             var list = new List<SubjectStudent>();
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@subjectId", subjectId);
 
@@ -61,7 +61,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 WHERE id_subject = @subjectId AND id_student = @studentId;
             ";
 
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@grade", grade);
             cmd.Parameters.AddWithValue("@subjectId", subjectId);

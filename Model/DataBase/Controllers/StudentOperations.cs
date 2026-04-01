@@ -24,7 +24,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 using var command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@first_Name", student.FirstName);
                 command.Parameters.AddWithValue("@LastName", student.LastName);
@@ -52,7 +52,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 WHERE email = @email 
                 LIMIT 1;";
 
-            using var connection = SingletonSafe.CreateConnection();
+            using var connection = ConnectionPooling.CreateConnection();
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@email", email);
 
@@ -98,7 +98,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 WHERE phone = @phone 
                 LIMIT 1;";
 
-            using var connection = SingletonSafe.CreateConnection();
+            using var connection = ConnectionPooling.CreateConnection();
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@phone", phone);
 
@@ -146,7 +146,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             int? result = null;
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
 
                 // 1) Verificar existencia
                 const string checkSql = @"
@@ -219,7 +219,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return students;
 
@@ -269,7 +269,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             int? result = null;
             try
             {
-                using (MySqlConnection connection = SingletonSafe.CreateConnection())
+                using (MySqlConnection connection = ConnectionPooling.CreateConnection())
                 {
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {

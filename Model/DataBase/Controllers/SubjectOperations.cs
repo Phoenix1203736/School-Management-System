@@ -23,7 +23,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return null;
 
@@ -60,7 +60,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 @"SELECT id, name, id_professor, start_date, end_date, active, description 
           FROM school.subjects ";
 
-            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
+            using (MySqlConnection? connection = ConnectionPooling.CreateConnection())
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
@@ -108,7 +108,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
         WHERE s.active = @active;
     ";
 
-            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
+            using (MySqlConnection? connection = ConnectionPooling.CreateConnection())
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
@@ -170,7 +170,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return null;
 
@@ -217,7 +217,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return list;
 
@@ -262,7 +262,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return false;
 
@@ -308,7 +308,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             AND s.active = 1;
     ";
 
-            using (MySqlConnection? connection = SingletonSafe.CreateConnection())
+            using (MySqlConnection? connection = ConnectionPooling.CreateConnection())
             {
                 if (connection == null)
                     return null;
@@ -379,7 +379,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
         {
             var subjects = new List<Subject>();
 
-            using var connection = SingletonSafe.CreateConnection();
+            using var connection = ConnectionPooling.CreateConnection();
             //connection?.Open();
 
             const string query = @"SELECT id, name FROM school.subjects ORDER BY name ";
