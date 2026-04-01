@@ -14,7 +14,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
         {
             _instruction = @"SELECT name, email, role, active FROM users WHERE email = @email AND `password` = @password;";
             
-            using var connection = SingletonSafe.CreateConnection();
+            using var connection = ConnectionPooling.CreateConnection();
             if (connection == null || connection.State != System.Data.ConnectionState.Open)
                 return;
 

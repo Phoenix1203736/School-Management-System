@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SistemsProyect</RootNamespace>
     <AssemblyName>SistemsProyect</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44310</IISExpressSSLPort>
@@ -449,7 +449,7 @@
     <Compile Include="Model\DataBase\Controllers\SubjectOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\TeacherOperations.cs" />
     <Compile Include="Model\DataBase\Controllers\UserOperations.cs" />
-    <Compile Include="Model\DataBase\SingletonSafe.cs" />
+    <Compile Include="Model\DataBase\ConnectionPooling.cs" />
     <Compile Include="Model\Enums\AttendanceStatus.cs" />
     <Compile Include="Model\Enums\StudentStatus.cs" />
     <Compile Include="Model\Enums\TeacherStatus.cs" />

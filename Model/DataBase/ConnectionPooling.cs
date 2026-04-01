@@ -4,7 +4,7 @@ using MySqlConnector;
 
 namespace SistemsProyect.Model.DataBase
 {
-    public static class SingletonSafe
+    public static class ConnectionPooling
     {
         private static readonly string ConnectionString = new MySqlConnectionStringBuilder
         {

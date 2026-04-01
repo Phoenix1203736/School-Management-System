@@ -32,7 +32,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
             ";
 
             var list = new List<SubjectReport>();
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@subjectId", subjectId);
 

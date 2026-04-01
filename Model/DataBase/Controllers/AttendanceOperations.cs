@@ -23,7 +23,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return false;
 
@@ -60,7 +60,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return null;
 

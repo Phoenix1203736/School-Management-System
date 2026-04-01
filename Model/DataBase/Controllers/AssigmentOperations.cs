@@ -15,7 +15,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             try
             {
-                using var connection = SingletonSafe.CreateConnection();
+                using var connection = ConnectionPooling.CreateConnection();
                 if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     return false;
 
@@ -52,7 +52,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
     ";
 
             var list = new List<Assignament>();
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@fullName", $"{user.FirstName} {user.LastName}".Trim());
 
@@ -90,7 +90,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
     ";
 
             var list = new List<StudentGradeInfo>();
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@assignmentId", assignmentId);
 
@@ -117,7 +117,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
         WHERE id = @id;
     ";
 
-            using var conn = SingletonSafe.CreateConnection();
+            using var conn = ConnectionPooling.CreateConnection();
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@grade", grade);
             cmd.Parameters.AddWithValue("@id", assignmentId);
