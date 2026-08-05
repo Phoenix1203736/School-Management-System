@@ -10,6 +10,9 @@ namespace SistemsProyect
         {
             RegisterJQueryScriptManager();
 
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/Site.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                 "~/Scripts/WebForms/WebForms.js",
                 "~/Scripts/WebForms/WebUIValidation.js",

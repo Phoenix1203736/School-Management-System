@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.UI;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using SistemsProyect.Components;
 using SistemsProyect.Model.DataBase.Controllers;
+using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.Reports
 {
-    public partial class GenerateReport : Page
+    public partial class GenerateReport : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Administrator };
        protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

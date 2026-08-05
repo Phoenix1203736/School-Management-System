@@ -34,6 +34,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             var list = new List<SubjectStudent>();
             using var conn = ConnectionPooling.CreateConnection();
+            if (conn == null || conn.State != System.Data.ConnectionState.Open)
+                return list;
+
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@subjectId", subjectId);
 
@@ -62,6 +65,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
             ";
 
             using var conn = ConnectionPooling.CreateConnection();
+            if (conn == null || conn.State != System.Data.ConnectionState.Open)
+                return false;
+
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@grade", grade);
             cmd.Parameters.AddWithValue("@subjectId", subjectId);

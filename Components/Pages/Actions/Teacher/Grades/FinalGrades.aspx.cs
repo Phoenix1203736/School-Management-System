@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SistemsProyect.Components;
 using SistemsProyect.Model.DataBase.Controllers;
+using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Teacher.Grades
 {
-    public partial class FinalGrades : Page
+    public partial class FinalGrades : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Standard, UserRole.Administrator };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

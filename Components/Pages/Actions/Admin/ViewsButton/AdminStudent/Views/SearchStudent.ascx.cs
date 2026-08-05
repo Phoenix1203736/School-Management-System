@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
  using System.Diagnostics;
  using System.Web;
 using SistemsProyect.Model.Classes;
@@ -109,10 +109,13 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
                 }
             }
 
-            catch (Exception ex)
+catch (Exception ex)
             {
-                Debug.WriteLine($"erorr en btnSave_Click: {ex}");
-                // ShowMessage($"Error al guardar: {ex.Message}", "text-danger");
+                ClearStudentData();
+                // ShowMessage($"Error al buscar: {ex.Message}", "text-danger");
+                message.Text = "Error al buscar el estudiante. Intente nuevamente.";
+                message.CssClass = "text-danger";
+                System.Diagnostics.Debug.WriteLine($"Error al buscar: {ex}");
             }
         }
 

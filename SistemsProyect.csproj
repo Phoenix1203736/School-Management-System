@@ -181,16 +181,15 @@
     <Content Include="Components\NavBar\Teacher\NavBarTeacher.ascx" />
     <Content Include="Components\Pages\About\About.aspx" />
     <Content Include="Components\Pages\Actions\Admin\Reports\GenerateReport.aspx" />
+    <Content Include="Components\Pages\Actions\Admin\ResetPassword.aspx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\AddCourses.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\AddCourseStudent.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\DeleteCourses.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\SearchCourse.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminViewCourses.aspx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\ButtonsAdminCourses.ascx" />
-    <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\StylesCoursesView.css" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\AdminViewStudents.aspx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\StudentButtons.ascx" />
-    <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\StylesStudentView.css" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\Views\AddStudent.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\Views\ChangeStatusStudent.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\AdminStudent\Views\SearchStudent.ascx" />
@@ -201,15 +200,12 @@
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\AdminTeacher\UpdateTeacher.ascx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\AdminView.aspx" />
     <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\Buttonsteacher.ascx" />
-    <Content Include="Components\Pages\Actions\Admin\ViewsButton\Teacher\StylesAdminView.css" />
     <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Assigment.aspx" />
-    <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Styles.css" />
     <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\AddAsigment.ascx" />
     <Content Include="Components\Pages\Actions\Teacher\Course\Asigment\Views\GradeAsigment.ascx" />
     <Content Include="Components\Pages\Actions\Teacher\Course\Assistance\AssistantView.aspx" />
     <Content Include="Components\Pages\Actions\Teacher\Grades\FinalGrades.aspx" />
     <Content Include="Components\Pages\Login\Login.aspx" />
-    <Content Include="Components\Pages\Login\LoginStyles.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -228,6 +224,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="README.md" />
@@ -281,6 +278,8 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="SecureSessionIdManager.cs" />
+    <Compile Include="Components\BasePage.cs" />
     <Compile Include="Components\NavBar\Admin\NavBarAdmin.ascx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -303,6 +302,13 @@
     </Compile>
     <Compile Include="Components\Pages\Actions\Admin\Reports\GenerateReport.aspx.designer.cs">
       <DependentUpon>GenerateReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Admin\ResetPassword.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Pages\Actions\Admin\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\Pages\Actions\Admin\ViewsButton\AdminCourses\AdminCourses\AddCourses.ascx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -433,6 +439,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\Classes\Assignament.cs" />
+    <Compile Include="Model\Classes\LoginAttemptTracker.cs" />
+    <Compile Include="Model\Classes\PasswordManager.cs" />
     <Compile Include="Model\Classes\Attendance.cs" />
     <Compile Include="Model\Classes\PasswordGenerator.cs" />
     <Compile Include="Model\Classes\Student.cs" />

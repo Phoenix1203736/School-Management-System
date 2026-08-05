@@ -62,6 +62,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             using (MySqlConnection? connection = ConnectionPooling.CreateConnection())
             {
+                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    return list;
+
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -110,6 +113,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             using (MySqlConnection? connection = ConnectionPooling.CreateConnection())
             {
+                if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    return list;
+
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@active", active);
@@ -380,6 +386,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
             var subjects = new List<Subject>();
 
             using var connection = ConnectionPooling.CreateConnection();
+            if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                return subjects;
+
             //connection?.Open();
 
             const string query = @"SELECT id, name FROM school.subjects ORDER BY name ";

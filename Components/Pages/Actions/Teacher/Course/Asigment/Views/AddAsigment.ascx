@@ -3,7 +3,7 @@
 <div class="card shadow border-0 rounded-4 p-4">
     <div class="card-body">
         <h4 class="card-title text-primary fw-bold mb-4">
-            <i class="bi bi-plus-circle me-2"></i>Agregar Asignación
+            <svg class="icon me-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Agregar Asignación
         </h4>
 
         <div class="mb-3">

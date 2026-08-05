@@ -2,10 +2,11 @@
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent.Views.AddStudent" %>
 
 <div class="container mt-4">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Registro de alumno</h4>
-    </div>
-    <div class="card-body">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Registro de alumno</h4>
+        </div>
+        <div class="card-body">
         <!-- First name-->
         <div class="mb-3">
             <label class="form-label">Nombre(s)</label>
@@ -122,5 +123,6 @@
         <asp:ValidationSummary ID="valSummary" runat="server"
             CssClass="text-danger mt-3" 
             HeaderText="Por favor corrija los siguientes errores:" />
+        </div>
     </div>
 </div>

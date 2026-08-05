@@ -212,3 +212,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 *.sln.iml
+AGENTS.md
+.vs/
+.idea/

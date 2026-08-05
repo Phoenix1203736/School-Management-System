@@ -69,7 +69,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
             }
             catch(Exception ex)
             {
-                lblError.Text = $"Error: {ex.Message}";
+                lblError.Text = "Error al guardar el alumno. Verifique los datos e intente nuevamente.";
                 lblError.CssClass = "text-danger";
                 lblError.Visible = true;
                 Debug.WriteLine($"Error en btnSave_Click: {ex}");

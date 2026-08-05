@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Web.UI;
+using SistemsProyect.Components;
+using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment
 {
-    public partial class Assigment : Page
+    public partial class Assigment : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Standard, UserRole.Administrator };
         protected void Page_Load(object sender, EventArgs e)
         {
             //Debug.WriteLine("Hola");

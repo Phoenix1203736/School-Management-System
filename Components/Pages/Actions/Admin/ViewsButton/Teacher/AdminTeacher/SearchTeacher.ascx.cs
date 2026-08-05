@@ -61,7 +61,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
             catch (Exception ex)
             {
                 ClearTeacherData();
-                ShowMessage($"Error al buscar: {ex.Message}", "text-danger");
+                ShowMessage("Error al buscar el profesor. Intente nuevamente.", "text-danger");
+                System.Diagnostics.Debug.WriteLine($"Error al buscar: {ex}");
             }
         }
 
@@ -108,7 +109,8 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Admi
             }
             catch (Exception ex)
             {
-                ShowMessage($"Error al guardar: {ex.Message}", "text-danger");
+                ShowMessage("Error al actualizar el profesor. Verifique los datos.", "text-danger");
+                System.Diagnostics.Debug.WriteLine($"Error al guardar: {ex}");
             }
         }
 

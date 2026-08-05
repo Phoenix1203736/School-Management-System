@@ -3,7 +3,7 @@
 <div class="card shadow border-0 rounded-4 p-4">
     <div class="card-body">
         <h4 class="card-title text-success fw-bold mb-4">
-            <i class="bi bi-clipboard-check me-2"></i>Calificar Asignaciones
+            <svg class="icon me-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>Calificar Asignaciones
         </h4>
 
         <div class="mb-3">

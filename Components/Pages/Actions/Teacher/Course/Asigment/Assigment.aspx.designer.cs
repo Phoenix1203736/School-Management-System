@@ -21,7 +21,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonAddAsigment;
+        protected global::System.Web.UI.WebControls.LinkButton ButtonAddAsigment;
 
         /// <summary>
         /// buttonAddGrade control.
@@ -30,7 +30,7 @@ namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Asigment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button buttonAddGrade;
+        protected global::System.Web.UI.WebControls.LinkButton buttonAddGrade;
 
         /// <summary>
         /// AddAsigmentControl control.

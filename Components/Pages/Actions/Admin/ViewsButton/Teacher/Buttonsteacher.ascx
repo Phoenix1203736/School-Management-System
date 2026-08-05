@@ -1,42 +1,27 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Buttonsteacher.ascx.cs"
     Inherits="SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher.Buttonsteacher" %>
 
-<!-- Versión mejorada con disposición horizontal y responsive -->
-<div class="button-container">
-    <div class="d-flex flex-wrap gap-3 p-3 justify-content-center">
-        <!-- Botón Agregar Maestro -->
-        <asp:Button CausesValidation="False" CssClass="btn btn-primary flex-grow-1" ID="AddTeacherButton" OnClick="AddTeacherButton_Click" runat="server" Text="Agregar Maestro" />
+<!-- Menú de acciones para profesores -->
+<div class="action-list">
+    <!-- Agregar Maestro -->
+    <asp:LinkButton CausesValidation="False" CssClass="action-link" ID="AddTeacherButton" OnClick="AddTeacherButton_Click" runat="server">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+        <span>Agregar Maestro</span>
+    </asp:LinkButton>
 
-        <!-- Botón Buscar Maestro -->
-        <asp:Button runat="server" ID="SearchTeacher"
-            CssClass="btn btn-info flex-grow-1"
-            Text="Buscar Maestro"
-            OnClick="SearchTeacher_Click" CausesValidation="False" />
+    <!-- Buscar Maestro -->
+    <asp:LinkButton runat="server" ID="SearchTeacher"
+        CssClass="action-link"
+        OnClick="SearchTeacher_Click" CausesValidation="False">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span>Buscar Maestro</span>
+    </asp:LinkButton>
 
-        <!-- Botón Cambiar el estado del Maestro -->
-        <asp:Button runat="server" ID="ChangeStatusTeacher"
-            CssClass="btn btn-danger flex-grow-1"
-            Text="Cambiar el estado Maestro"
-            OnClick="ChangeStatusTeacher_Click" CausesValidation="False" />
-
-        <!-- Button update Teacher -->
-        <%--<asp:Button runat="server" ID="UpdateTeacher" CssClass="btn btn-warning"
-            Text="Actualizar Maestro"
-            OnClick="UpdateTeacher_Click" CausesValidation="False" />--%>
-
-    </div>
+    <!-- Cambiar el estado del Maestro -->
+    <asp:LinkButton runat="server" ID="ChangeStatusTeacher"
+        CssClass="action-link"
+        OnClick="ChangeStatusTeacher_Click" CausesValidation="False">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 11l2 2 4-4"/></svg>
+        <span>Cambiar el estado del Maestro</span>
+    </asp:LinkButton>
 </div>
-
-<style>
-    /* Estilos personalizados */
-    .button-container {
-        max-width: 800px; /* Ancho máximo para pantallas grandes */
-        margin: 0 auto; /* Centrado horizontal */
-    }
-
-    @media (max-width: 768px) {
-        .button-container .btn {
-            min-width: 100%; /* Botones a ancho completo en móviles */
-        }
-    }
-</style>

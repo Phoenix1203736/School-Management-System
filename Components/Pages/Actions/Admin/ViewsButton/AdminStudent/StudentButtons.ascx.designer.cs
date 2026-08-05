@@ -21,7 +21,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddStudentButton;
+        protected global::System.Web.UI.WebControls.LinkButton AddStudentButton;
 
         /// <summary>
         /// SearchStudent control.
@@ -30,7 +30,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchStudent;
+        protected global::System.Web.UI.WebControls.LinkButton SearchStudent;
 
         /// <summary>
         /// ChangeStatusStudent control.
@@ -39,6 +39,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminStudent
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ChangeStatusStudent;
+        protected global::System.Web.UI.WebControls.LinkButton ChangeStatusStudent;
     }
 }

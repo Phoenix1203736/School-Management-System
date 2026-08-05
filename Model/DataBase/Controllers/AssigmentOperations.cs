@@ -53,6 +53,9 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
             var list = new List<Assignament>();
             using var conn = ConnectionPooling.CreateConnection();
+            if (conn == null || conn.State != System.Data.ConnectionState.Open)
+                return list;
+
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@fullName", $"{user.FirstName} {user.LastName}".Trim());
 

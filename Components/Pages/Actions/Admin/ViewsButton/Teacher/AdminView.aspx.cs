@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web.UI;
+using SistemsProyect.Components;
+using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
 {
-    public partial class AdminViews : Page
+    public partial class AdminViews : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Administrator };
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadAdminButtons();

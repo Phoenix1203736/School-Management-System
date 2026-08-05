@@ -15,6 +15,10 @@ namespace SistemsProyect.Model.DataBase.Controllers
         public static int? AddTeacherToProfessor(Teacher teacher)
         {
             int? result = null;
+
+            if (string.IsNullOrEmpty(teacher.Password))
+                return null;
+
             _query = @"INSERT INTO school.professor 
                     (`first_name`, `last_name`, `email`, `password`, `phone`, `hire_date`, `specialization`, `status`) 
                     VALUES (@FirstName, @LastName, @Email, @password, @phone, @hireDate, @specialization, @status);";
@@ -27,7 +31,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
                 command.Parameters.AddWithValue("@LastName", teacher.LastName);
                 command.Parameters.AddWithValue("@Email", teacher.Email);
-                command.Parameters.AddWithValue("@password", teacher.Password);
+                command.Parameters.AddWithValue("@password", PasswordManager.Hash(teacher.Password));
                 command.Parameters.AddWithValue("@phone", teacher.Phone);
                 command.Parameters.AddWithValue("@hireDate", teacher.HireDate);
                 command.Parameters.AddWithValue("@specialization", teacher.Specialization);
@@ -47,6 +51,10 @@ namespace SistemsProyect.Model.DataBase.Controllers
         {
             var user = new User();
             int? result = null;
+
+            if (string.IsNullOrEmpty(teacher.Password))
+                return null;
+
             short? active;
             _query = @"INSERT INTO school.users (`name`, `email`, `password`, `phone`, `role`, `active`) 
                        VALUES (@name, @email, @password, @phone, @role, @active);";
@@ -69,7 +77,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 using MySqlCommand command = new MySqlCommand(_query, connection);
                 command.Parameters.AddWithValue("@name", teacher.FirstName+" "+teacher.LastName);
                 command.Parameters.AddWithValue("@email", teacher.Email);
-                command.Parameters.AddWithValue("@password", teacher.Password);
+                command.Parameters.AddWithValue("@password", PasswordManager.Hash(teacher.Password));
                 command.Parameters.AddWithValue("@phone", teacher.Phone);
                 command.Parameters.AddWithValue("@role", user.Role.ToString());
                 command.Parameters.AddWithValue("@active", active);
@@ -135,6 +143,12 @@ namespace SistemsProyect.Model.DataBase.Controllers
                 return null;
             }
 
+            if (string.IsNullOrEmpty(teacher.Password))
+            {
+                Debug.WriteLine("La contraseña del profesor está vacía.");
+                return null;
+            }
+
             int? result = null;
 
             try
@@ -164,7 +178,7 @@ namespace SistemsProyect.Model.DataBase.Controllers
 
                 using var updateCmd = new MySqlCommand(updateQuery, connection);
                 updateCmd.Parameters.AddWithValue("@name", teacher.FirstName);
-                updateCmd.Parameters.AddWithValue("@password", teacher.Password);
+                updateCmd.Parameters.AddWithValue("@password", PasswordManager.Hash(teacher.Password));
                 updateCmd.Parameters.AddWithValue("@phone", teacher.Phone);
                 updateCmd.Parameters.AddWithValue("@role", teacher.Status == nameof(TeacherStatus.Active)
                     ? UserRole.Standard.ToString()

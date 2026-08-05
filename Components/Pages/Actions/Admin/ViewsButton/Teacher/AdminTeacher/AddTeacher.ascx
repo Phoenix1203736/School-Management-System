@@ -3,10 +3,11 @@
 
 <!--suppress JSUnresolvedReference -->
 <div class="container mt-4">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Registro de maestro</h4>
-    </div>
-    <div class="card-body">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Registro de maestro</h4>
+        </div>
+        <div class="card-body">
         <!-- First name-->
         <div class="mb-3">
             <label class="form-label">Nombre(s)</label>

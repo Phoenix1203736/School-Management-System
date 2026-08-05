@@ -1,9 +1,12 @@
 ﻿using System;
+using SistemsProyect.Components;
+using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.AdminCourses
 {
-    public partial class AdminViewCourses : System.Web.UI.Page
+    public partial class AdminViewCourses : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Administrator };
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadButtons();

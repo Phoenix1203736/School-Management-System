@@ -1,21 +1,356 @@
-﻿/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+﻿/* ============================================================
+   Edu Soft - Sistema de diseño (tokens + tema Bootstrap)
+   Paleta: teal educativo (#0D9488), acento ámbar (#D97706)
+   Tipografía: Poppins (títulos) + Open Sans (cuerpo)
+   ============================================================ */
+
+/* ---------- Tokens de diseño ---------- */
+:root {
+    --ed-primary: #0D9488;
+    --ed-primary-dark: #0B7E74;
+    --ed-primary-darker: #096B62;
+    --ed-primary-rgb: 13, 148, 136;
+    --ed-secondary: #2DD4BF;
+    --ed-accent: #D97706;
+    --ed-accent-dark: #B85C04;
+    --ed-background: #F2FAF8;
+    --ed-foreground: #134E4A;
+    --ed-muted: #E8F1F4;
+    --ed-border: #5EEAD4;
+    --ed-danger: #DC2626;
+    --ed-on-primary: #FFFFFF;
+
+    --font-body: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Poppins', 'Open Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* Sobrescribe variables internas de Bootstrap 5 */
+    --bs-primary: var(--ed-primary);
+    --bs-primary-rgb: var(--ed-primary-rgb);
+    --bs-link-color: var(--ed-primary);
+    --bs-link-hover-color: var(--ed-primary-dark);
+    --bs-body-bg: var(--ed-background);
+    --bs-body-color: #2A3B3A;
+    --bs-body-font-family: var(--font-body);
+}
+
+/* ---------- Tipografía ---------- */
+body {
+    font-family: var(--font-body);
+    background-color: var(--ed-background);
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand,
+.card-header h4,
+.card-header h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ed-foreground);
+    letter-spacing: -0.01em;
+}
+
+/* ---------- Contenedor global ---------- */
 .body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin-top: 1.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
     .body-content {
-        padding: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+    box-shadow: 0 2px 8px rgba(19, 78, 74, 0.12);
+}
+
+.navbar-brand {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.navbar-dark .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.15s ease-in-out;
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link:focus {
+    color: #ffffff;
+}
+
+.navbar-dark .nav-link.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.navbar-dark .dropdown-menu {
+    border: 1px solid var(--ed-border);
+    box-shadow: 0 8px 24px rgba(19, 78, 74, 0.15);
+}
+
+.navbar-dark .dropdown-item:hover,
+.navbar-dark .dropdown-item:focus {
+    background-color: rgba(var(--ed-primary-rgb), 0.08);
+    color: var(--ed-primary-dark);
+}
+
+.navbar-dark .dropdown-item.active {
+    background-color: var(--ed-primary);
+    color: var(--ed-on-primary);
+}
+
+/* ---------- Botones ---------- */
+.btn {
+    border-radius: 0.5rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--ed-primary);
+    --bs-btn-border-color: var(--ed-primary);
+    --bs-btn-hover-bg: var(--ed-primary-dark);
+    --bs-btn-hover-border-color: var(--ed-primary-dark);
+    --bs-btn-active-bg: var(--ed-primary-darker);
+    --bs-btn-active-border-color: var(--ed-primary-darker);
+    --bs-btn-disabled-bg: #7FB3AD;
+    --bs-btn-disabled-border-color: #7FB3AD;
+    --bs-btn-focus-shadow-rgb: var(--ed-primary-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--ed-primary);
+    --bs-btn-border-color: var(--ed-primary);
+    --bs-btn-hover-bg: var(--ed-primary);
+    --bs-btn-hover-border-color: var(--ed-primary);
+    --bs-btn-active-bg: var(--ed-primary-dark);
+    --bs-btn-active-border-color: var(--ed-primary-dark);
+    --bs-btn-focus-shadow-rgb: var(--ed-primary-rgb);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- Fondos / textos utilitarios ---------- */
+.bg-primary {
+    background-color: rgba(var(--ed-primary-rgb), 1) !important;
+}
+
+.text-primary {
+    color: rgba(var(--ed-primary-rgb), 1) !important;
+}
+
+/* ---------- Formularios ---------- */
+.form-label {
+    font-weight: 600;
+    color: var(--ed-foreground);
+    margin-bottom: 0.35rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.5rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--ed-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--ed-primary-rgb), 0.2);
+}
+
+.form-control[readonly] {
+    background-color: var(--ed-muted);
+}
+
+/* ---------- Tarjetas ---------- */
+.card {
+    border: 1px solid rgba(var(--ed-primary-rgb), 0.15);
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(19, 78, 74, 0.06);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(var(--ed-primary-rgb), 0.15);
+    padding: 0.9rem 1.25rem;
+}
+
+.card-header.bg-primary {
+    color: var(--ed-on-primary);
+}
+
+.card-header.bg-primary h4,
+.card-header.bg-primary h3,
+.card-header.bg-primary h2 {
+    color: var(--ed-on-primary);
+}
+
+/* ---------- Tablas ---------- */
+.table {
+    --bs-table-hover-bg: rgba(var(--ed-primary-rgb), 0.04);
+}
+
+.table > thead {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.table > thead th {
+    background-color: rgba(var(--ed-primary-rgb), 0.09);
+    color: var(--ed-foreground);
+    border-bottom-width: 2px;
+    border-bottom-color: var(--ed-primary);
+}
+
+/* ---------- Área de trabajo (sidebar + contenido) ---------- */
+.workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+@media (min-width: 992px) {
+    .workspace {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .workspace-sidebar {
+        width: 260px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .workspace-content {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* ---------- Lista de acciones (sidebar) ---------- */
+.action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.action-list .action-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(var(--ed-primary-rgb), 0.2);
+    border-radius: 0.6rem;
+    background-color: #ffffff;
+    color: var(--ed-foreground);
+    text-align: left;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        color 0.15s ease-in-out;
+}
+
+.action-list .action-link:hover,
+.action-list .action-link:focus {
+    background-color: rgba(var(--ed-primary-rgb), 0.07);
+    border-color: var(--ed-primary);
+    color: var(--ed-primary-dark);
+}
+
+.action-list .action-link .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--ed-primary);
+}
+
+/* Iconos SVG auxiliares (estilo trazo, tipo Feather) */
+.icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: -0.125em;
+}
+
+.icon-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-lg {
+    width: 28px;
+    height: 28px;
+}
+
+/* ---------- Tarjetas de características (inicio) ---------- */
+.feature-card {
+    height: 100%;
+    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.feature-card:hover {
+    box-shadow: 0 8px 24px rgba(19, 78, 74, 0.12);
+    transform: translateY(-2px);
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    background-color: rgba(var(--ed-primary-rgb), 0.12);
+    color: var(--ed-primary);
+    margin-bottom: 0.75rem;
+}
+
+.feature-icon .icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ---------- Accesibilidad ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--ed-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

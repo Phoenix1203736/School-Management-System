@@ -21,7 +21,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddTeacherButton;
+        protected global::System.Web.UI.WebControls.LinkButton AddTeacherButton;
 
         /// <summary>
         /// SearchTeacher control.
@@ -30,7 +30,7 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchTeacher;
+        protected global::System.Web.UI.WebControls.LinkButton SearchTeacher;
 
         /// <summary>
         /// ChangeStatusTeacher control.
@@ -39,6 +39,6 @@ namespace SistemsProyect.Components.Pages.Actions.Admin.ViewsButton.Teacher
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ChangeStatusTeacher;
+        protected global::System.Web.UI.WebControls.LinkButton ChangeStatusTeacher;
     }
 }

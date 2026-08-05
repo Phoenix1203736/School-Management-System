@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using SistemsProyect.Components;
 using SistemsProyect.Model.Classes;
 using SistemsProyect.Model.DataBase.Controllers;
 using SistemsProyect.Model.Enums;
 
 namespace SistemsProyect.Components.Pages.Actions.Teacher.Course.Assistance
 {
-    public partial class AssistantView : System.Web.UI.Page
+    public partial class AssistantView : BasePage
     {
+        protected override UserRole[] AllowedRoles { get; } = { UserRole.Standard, UserRole.Administrator };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
